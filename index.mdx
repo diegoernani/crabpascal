@@ -1,0 +1,65 @@
+---
+title: "CrabPascal"
+description: "Compilador Pascal moderno em Rust — documentação oficial v2.22.0"
+---
+
+<Hero title="CrabPascal" subtitle="Pascal com garras de Rust — compilador zero-config, compatível com Delphi, pronto para APIs Horse e integração VS Code/Cursor." image="/images/crab-transparent.svg" />
+
+## Versão atual: **v2.22.0** (26/05/2026)
+
+O CrabPascal evoluiu de um interpretador experimental (v1.x, out/2025) para um **pipeline completo** de compilador com sprints quinzenais desde maio/2026.
+
+| Área | Estado |
+| --- | --- |
+| Diagnósticos (`check`) | Spans reais, problem matcher IDE |
+| RTL `System.*` | SysUtils, Classes, Generics, IOUtils |
+| OO / Properties | Runtime \+ accessors por método |
+| Unicode | UTF-16 em strings Delphi |
+| Run / Build | Paridade crescente; codegen honesto em exceptions |
+| Horse HTTP | Rotas parametrizadas \+ testes E2E (Sprint 16) |
+
+<CardGroup cols={2}>
+  <Card title="Comece aqui" icon="rocket" href="/getting-started/quickstart">
+    Instalação, primeiro programa e comandos CLI.
+  </Card>
+
+  <Card title="Changelog" icon="list" href="/essentials/changelog">
+    Histórico completo de versões até v2.22.0.
+  </Card>
+
+  <Card title="Roadmap de sprints" icon="map" href="/roadmap/sprints-overview">
+    Mapa sprint → versão com entregas e aprendizados.
+  </Card>
+
+  <Card title="Débito técnico" icon="wrench" href="/technical-debt/backlog">
+    Backlog vivo pós-v2.19 — o que vem a seguir.
+  </Card>
+</CardGroup>
+
+## Comandos essenciais
+
+```bash
+crab-pascal check programa.dpr    # diagnósticos com linha/coluna
+crab-pascal run programa.dpr      # interpretador / runtime
+crab-pascal build-exe programa.dpr # gera executável via toolchain C
+```
+
+## Como esta documentação está organizada
+
+<AccordionGroup>
+  <Accordion title="Documentação viva (atualizada)">
+    Páginas em **Início**, **Essenciais**, **Uso**, **Arquitetura**, **Roadmap**, **Releases** e **Débito técnico** refletem o estado atual ou foram curadas a partir das fontes mais recentes.
+  </Accordion>
+
+  <Accordion title="Histórico e melhorias">
+    Relatórios de v1.5–v2.8, planos superseded e índices antigos ficam em **Histórico**, com banner indicando que foram substituídos por conteúdo mais novo.
+  </Accordion>
+
+  <Accordion title="Contexto para IAs">
+    Briefings legados para agentes em **Contexto IA** — use junto com o changelog e o backlog para estado real do código.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Documentos datados de **out/2025** (v1.5–v2.8) descrevem marcos importantes do projeto, mas **não** representam a versão atual do binário (`2.22.0` em `Cargo.toml`).
+</Note>

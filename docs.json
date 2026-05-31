@@ -49,6 +49,7 @@
       {
         "group": "Inicio",
         "pages": [
+          "index",
           "getting-started/comece-aqui",
           "getting-started/quickstart",
           "getting-started/leia-primeiro",
