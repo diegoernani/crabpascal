@@ -3,6 +3,24 @@ title: "Release v2.22.0 — RTL IOUtils + unit dotted names (Sprint 14)"
 description: "CrabPascal docs - Release v2.22.0 — RTL IOUtils + unit dotted names (Sprint 14)"
 ---
 
-<Note>
-  Documento migrado. Consulte [Status](/essentials/project-status).
-</Note>
+# Release v2.22.0 — RTL IOUtils \+ unit dotted names (Sprint 14)
+
+**Tag:** `v2.22.0`\
+**Sprint:** 14
+
+## Resumo
+
+Entrega surface mínima de `System.IOUtils` no RTL e garante que o parser/semântica consigam processar units com nome com ponto (`System.X`).
+
+## Mudanças
+
+- `rtl/sys/System.IOUtils.pas`.
+- Parser: nome de unit com `.`.
+- Semântica: resolver `System.*` via RTL quando arquivo existir.
+- Teste `system_units` cobre `System.IOUtils`.
+
+## Testes
+
+```bash
+cargo test
+```

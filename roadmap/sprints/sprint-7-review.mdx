@@ -11,13 +11,13 @@ description: "CrabPascal docs - Sprint 7 — Review (v2.15.0)"
 
 - Parâmetros `var`: `Value::Reference`, write-back em procedures/functions e `TryGetValue`.
 - `TDictionary::Add` / `TryGetValue` no `simulate_function_execution`; dispatch direto para genéricos instanciados.
-- Parser: tipos genéricos com `Integer`/`String` em expressões (`TDictionary<String,Integer>`).
+- Parser: tipos genéricos com `Integer`/`String` em expressões (`TDictionary&lt;String,Integer&gt;`).
 - RTL `rtl/sys/System.Generics.Collections.pas`; semântica reconhece `Generics.Collections`.
 - Testes `generics_collections.rs` \+ fixtures.
 
 ## Aprendizados
 
-1. `D := TDictionary<...>.Create` exige `normalize_call_name` também no `execute_assignment`.
+1. `D := TDictionary&lt;...&gt;.Create` exige `normalize_call_name` também no `execute_assignment`.
 2. Métodos de instância genéricos devem ir para intrinsics antes da VMT vazia.
 3. `out` explícito no parser permanece débito; `var` cobre o caso `TryGetValue`.
 
