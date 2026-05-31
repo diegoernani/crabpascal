@@ -3,6 +3,197 @@ title: "Squad CrabPascal — Papéis, nomes e governança"
 description: "CrabPascal docs - Squad CrabPascal — Papéis, nomes e governança"
 ---
 
-<Note>
-  Documento migrado. Consulte [Status](/essentials/project-status).
-</Note>
+# Squad CrabPascal — Papéis, nomes e governança
+
+Objetivo da squad: entregar um **compilador Delphi-like acima da média do mercado** — não “mais features no papel”, mas **compatibilidade real**, **diagnósticos confiáveis**, **testes que não mentem** e **paridade** entre `run`, `check` e `build`.
+
+Documento de versões: `SPRINTS_VERSOES.md`\
+Review técnica: `REVIEW_COMPILADOR_2026_360.md`
+
+---
+
+## Princípio de foco (produto acima da média)
+
+Toda tarefa precisa responder **sim** a pelo menos uma destas perguntas:
+
+1. Isso faz um projeto Delphi **real** compilar/rodar melhor do que antes?
+2. Isso reduz **surpresa** (run funciona, build quebra)?
+3. Isso melhora **DX** (erro na linha certa, IDE útil)?
+4. Isso está coberto por **teste** que falha se regredir?
+
+Se a resposta for “não” para todas → **não entra na sprint** (vai para backlog).
+
+---
+
+## Organograma da squad
+
+```text
+                    ┌─────────────────────┐
+                    │  Rafael (Squad Lead) │
+                    │  Ritmo · foco · release │
+                    └──────────┬──────────┘
+                               │
+         ┌─────────────────────┼─────────────────────┐
+         │                     │                     │
+┌────────▼────────┐   ┌─────────▼─────────┐   ┌───────▼────────┐
+│ Helena (Senior)  │   │ Bruno (Pleno)      │   │ Marina (QA)    │
+│ Arquitetura ·    │   │ Execução ·         │   │ Qualidade ·    │
+│ runtime · tipos  │   │ parser · RTL shims │   │ regressão ·    │
+└────────┬────────┘   └─────────┬─────────┘   │ “não passa”    │
+         │                      │              └───────┬────────┘
+         │            ┌─────────▼─────────┐              │
+         │            │ Lucas (Pleno)      │◄─────────────┘
+         │            │ Codegen · build ·  │   devolve PR
+         │            │ paridade run/build │
+         │            └─────────┬─────────┘
+         │                      │
+         └──────────┬───────────┘
+                    │
+         ┌──────────▼──────────┐
+         │ Camila (Pleno · IDE)  │
+         │ Extensão · check ·    │
+         │ problem matcher       │
+         └─────────────────────┘
+```
+
+---
+
+## Roster — função, nome e missão
+
+| Papel | Nome | Função | Missão em uma frase |
+| --- | --- | --- | --- |
+| **Squad Lead** | **Rafael** | Coordenação, priorização, release, alinhamento com o cliente (você) | Garante que a sprint **entrega valor** e que ninguém desvia para “refactor bonito sem impacto”. |
+| **Dev Senior** | **Helena** | Arquitetura técnica, runtime, semântica/tipos, decisões difíceis (strings UTF-16, exceções, OO) | Escolhe o **design certo** e implementa o que não pode errar; revisa PRs críticos. |
+| **Dev Pleno** | **Bruno** | Parser, spans, recovery, unit resolver, RTL surface (`System.*`, shims) | **Executa rápido e com criatividade** nas partes visíveis do compilador (front \+ units). |
+| **Dev Pleno** | **Lucas** | Codegen C, `ProjectManager`, stubs, paridade `run` vs `build` | Faz o binário **nativo** não mentir; quando C não der, documenta e testa o híbrido. |
+| **Dev Pleno · IDE** | **Camila** | Extensão VSCode/Cursor, diagnósticos, tasks, lint on save | O produto **se sente profissional** no editor (Problems, build, run). |
+| **QA** | **Marina** | Testes, matriz de compatibilidade, CI, reprodução obsessiva | **Não deixa passar bug**; devolve com passos mínimos para reproduzir; é chata nos detalhes. |
+
+\> **Regra do Senior:** nas decisões disputadas (tipos, strings, exceções, OO), **Helena tem palavra final técnica** — depois documentada em 3 linhas no PR.
+
+\> **Regra do QA:** nenhuma release sem **critérios de aceitação** da sprint verdes \+ `cargo test` \+ suite de exemplos acordada.
+
+---
+
+## Mapeamento: quem cuida de quê (áreas técnicas)
+
+| Área do compilador | Dono primário | Revisor / backup |
+| --- | --- | --- |
+| Preprocessor / directives | Bruno | Helena |
+| Lexer / Parser / AST / spans | Bruno | Helena |
+| Semântica / tipos / overload | Helena | Rafael (escopo) |
+| `complete_runtime` / intrinsics | Helena | Lucas |
+| Codegen \+ `stubs.c` \+ link | Lucas | Helena |
+| `unit_resolver` \+ RTL `.pas` shims | Bruno | Helena |
+| `error_formatter` \+ `check` | Camila | Bruno |
+| Extensão VSCode/Cursor | Camila | Rafael |
+| Testes Rust \+ harness PS1 \+ matriz Delphi | Marina | Todos |
+| Release / version bump / changelog | Rafael | Marina |
+
+---
+
+## Mapeamento: squad × sprints (S1–S8)
+
+| Sprint | Versão | Líder de entrega | Execução principal | QA gate |
+| --- | --- | --- | --- | --- |
+| S1 Diagnósticos | v2.9.9 | Rafael | Bruno (spans) \+ Camila (check/IDE) | Marina |
+| S2 System/Namespaces | v2.10.0 | Rafael | Bruno (resolver \+ shims) \+ Helena (runtime hooks) | Marina |
+| S3 Classes/Streams | v2.11.0 | Helena | Bruno (RTL) \+ Helena (runtime) | Marina |
+| S4 Exceptions | v2.12.0 | Helena | Helena (runtime) \+ Bruno (parser/sem mínimo) | Marina |
+| S5 Strings pragmáticas | v2.13.0 | Helena | Helena (runtime) \+ Lucas (paridade C) | Marina |
+| S6 Properties/OO | v2.14.0 | Helena | Bruno (parser) \+ Helena (sem/runtime) \+ Lucas (codegen) | Marina |
+| S7 Generics/var | v2.15.0 | Helena | Bruno (surface) \+ Helena (runtime) | Marina |
+| S8 Delphi moderno UTF-16 | v2.16.0 | Helena | Helena (runtime) \+ Lucas (stubs/C) | Marina |
+
+---
+
+## Rituais da squad (leve, mas firme)
+
+### Diário (async ou 15 min)
+
+- **Rafael** pergunta: “O que bloqueia valor hoje?”
+- Cada dev: 1 linha — feito / hoje / bloqueio.
+- **Marina** reporta: testes vermelhos e regressões novas.
+
+### Meio da sprint
+
+- **Review de foco:** Rafael \+ Helena — ainda estamos na meta da sprint ou estamos cavando buraco lateral?
+- **Marina** roda matriz mínima da sprint (não espera o fim).
+
+### Fim da sprint (Definition of Done)
+
+- Critérios de aceitação de `SPRINTS_VERSOES.md` cumpridos
+- `cargo test` verde
+- Harness acordado verde (ou falhas documentadas com issue)
+- Changelog \+ bump de versão (extensão e/ou binário, conforme release)
+- Nada de “funciona só no meu PC” — Marina reproduziu
+
+### Quando QA devolve
+
+1. Marina abre/descreve: **passos**, **esperado vs obtido**, **comando** (`check` / `run` / `build`).
+2. Dono da área corrige — **não** “fecha sem teste”.
+3. Marina revalida — só então Rafael marca sprint item como done.
+
+---
+
+## Como usar agentes (Cursor) com esta squad
+
+Cada “agente” de exploração/implementação no Cursor deve ser invocado **com o chapéu** de um membro:
+
+| Agente / prompt | Atuar como | Foco |
+| --- | --- | --- |
+| Exploração arquitetura | Rafael \+ Helena | Pipeline, riscos, não sair do escopo |
+| Parser / lexer | Bruno | Spans, recovery, AST shape |
+| Semântica / tipos | Helena | Menos permissivo, overload, properties |
+| Runtime / RTL | Helena \+ Bruno | Intrinsics, units, comportamento Delphi |
+| Codegen / build | Lucas | Paridade, stubs, exe real |
+| IDE / extensão | Camila | Problems, tasks, UX |
+| Testes / CI | Marina | Matriz, regressão, flaky HTTP |
+
+**Template de prompt para subagente:**
+
+```text
+Você é [NOME], [PAPEL] da Squad CrabPascal.
+Sprint atual: [Sx] — [versão] — ver SPRINTS_VERSOES.md.
+Regra: só proponha/implemente o que entrega valor ao critério de aceitação da sprint.
+Se encontrar escopo extra, liste em "Fora da sprint" e não implemente sem OK do Rafael.
+Inclua sempre: testes + como validar (check/run/build).
+```
+
+---
+
+## Métricas que Rafael vigia (produto acima da média)
+
+| Métrica | Meta (direção) |
+| --- | --- |
+| Erros com linha/coluna correta (`check`) | ↑ sprint a sprint |
+| Exemplos canônicos verdes no harness | ↑ ou estável |
+| Divergências `run` OK / `build` falha | ↓ até zero nas suites acordadas |
+| TODOs críticos em parser/codegen/runtime | ↓ |
+| Tempo para reproduzir bug reportado | ↓ (Marina exige script) |
+
+---
+
+## Escalando a squad (bons trabalhadores extras)
+
+Se entrar mais dev:
+
+| Papel sugerido | Nome reserva | Foco |
+| --- | --- | --- |
+| Pleno · Horse/HTTP | **Diego** (homônimo) | Exemplos API, flaky tests, servidor embutido |
+| Pleno · Docs/DevRel | **Sofia** | README, docs usuário, Open VSX/marketplace |
+| Junior (sob Bruno/Camila) | **Pedro** | Testes unitários pequenos, fixtures `.pas` |
+
+Ninguém novo implementa feature de sprint sem **pair review** com Helena ou dono da área.
+
+---
+
+## Compromisso da squad com você (cliente)
+
+- **Transparência:** sprint só “done” com aceitação objetiva.
+- **Sem marketing vazio:** versão só sobe se Marina e Rafael assinarem qualidade mínima.
+- **Delphi de verdade:** prioridade nas Sprints 2–5 (base) antes de “feature demo”.
+
+---
+
+_Última atualização: alinhado a Sprints 1–8 em `SPRINTS_VERSOES.md`._
