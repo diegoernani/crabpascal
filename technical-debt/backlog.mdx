@@ -74,30 +74,30 @@ description: "CrabPascal docs - Débito técnico — backlog para versões futur
 | --- | --- | --- | --- | --- |
 | TD-RTL-IO-001 | P1 | RTL | `System.IOUtils`/`TEncoding`/`TFileStream` shims mínimos | v2.22.0 (S14) |
 | TD-IDE-001 | P1 | IDE | `check` preencher Problems no VS Code/Cursor | v2.24.0 (S16) |
-| TD-IDE-002 | P1 | IDE | Comando `build` da extensão usa `build-exe` | S10/S16 | Rafael |
-| TD-RTL-IO-001 | P1 | RTL | Shims `System.IOUtils` / `TEncoding` / `TFileStream` mínimos | v2.22.0 S14 | Helena \+ Bruno |
-| TD-UNICODE-001 | P1 | Unicode | `PChar`/buffer wide nativo; IO UTF-8↔UTF-16 explícito | S14/S8\+ | Helena |
-| TD-PROPERTIES-001 | P1 | OO | Properties com accessor por método (read/write method) | v2.20.0 S12 | Helena \+ Lucas |
+| TD-IDE-002 | P1 | IDE | Comando `build` da extensÃ£o usa `build-exe` | S10/S16 | Rafael |
+| TD-RTL-IO-001 | P1 | RTL | Shims `System.IOUtils` / `TEncoding` / `TFileStream` mÃ­nimos | v2.22.0 S14 | Helena \+ Bruno |
+| TD-UNICODE-001 | P1 | Unicode | `PChar`/buffer wide nativo; IO UTF-8â†”UTF-16 explÃ­cito | S14/S8\+ | Helena |
+| TD-PROPERTIES-001 | P1 | OO | Properties com accessor por mÃ©todo (read/write method) | v2.20.0 S12 | Helena \+ Lucas |
 
 ---
 
-## P2 / P3 — backlog e DX
+## P2 / P3 â€” backlog e DX
 
-| ID | Prioridade | Descrição | Versão alvo |
+| ID | Prioridade | DescriÃ§Ã£o | VersÃ£o alvo |
 | --- | --- | --- | --- |
 | TD-TEST-004 | P3 | `tests/README.md` desatualizado (v2.8.0) | S16 |
-| TD-DOCS-001 | P3 | Drift de versão em docs de QA | S16 |
-| TD-PARSER-008 | P3 | Garantir zero `panic!` em paths de produção do parser | Contínuo |
+| TD-DOCS-001 | P3 | Drift de versÃ£o em docs de QA | S16 |
+| TD-PARSER-008 | P3 | Garantir zero `panic!` em paths de produÃ§Ã£o do parser | ContÃ­nuo |
 
 ---
 
-## Mapa release → débitos (roadmap sugerido)
+## Mapa release â†’ dÃ©bitos (roadmap sugerido)
 
 ```mermaid
 flowchart LR
-  v217[v2.17.0 S9 ✅] --> v218[v2.18.0 S10 paridade build]
+  v217[v2.17.0 S9 âœ…] --> v218[v2.18.0 S10 paridade build]
   v218 --> v219[v2.19.0 S11 parser]
-  v219 --> v220[v2.20.0 S12 properties avançadas]
+  v219 --> v220[v2.20.0 S12 properties avanÃ§adas]
   v220 --> v221[v2.21.0 S13 codegen OO/exceptions]
   v221 --> v222[v2.22.0 S14 RTL IO/Unicode]
   v222 --> v223[v2.23.0 S15 generics/for-in]
@@ -106,31 +106,31 @@ flowchart LR
 
 | Release | Sprint | Foco principal | IDs principais |
 | --- | --- | --- | --- |
-| **v2.17.0** | S9 | Baseline testes \+ paridade inicial | TD-SEMANTIC-001, TD-TEST-001†, TD-RUNTIME-001†, TD-CODEGEN-006† |
+| **v2.17.0** | S9 | Baseline testes \+ paridade inicial | TD-SEMANTIC-001, TD-TEST-001â€ , TD-RUNTIME-001â€ , TD-CODEGEN-006â€ |
 | **v2.18.0** | S10 | Paridade real run/build \+ strings C | TD-RUNTIME-001, TD-CODEGEN-006, TD-IDE-002 |
 | **v2.19.0** | S11 | Parser Delphi surface | TD-PARSER-001, 002, 004, 007 |
-| **v2.20.0** | S12 | Properties por método | TD-PROPERTIES-001, TD-CODEGEN-001† |
-| **v2.21.0** | S13 | Codegen OO completo | TD-CODEGEN-001–003, 005 |
+| **v2.20.0** | S12 | Properties por mÃ©todo | TD-PROPERTIES-001, TD-CODEGEN-001â€ |
+| **v2.21.0** | S13 | Codegen OO completo | TD-CODEGEN-001â€“003, 005 |
 | **v2.22.0** | S14 | IO e encoding | TD-RTL-IO-001, TD-UNICODE-001 |
 | **v2.23.0** | S15 | Generics / for..in | TD-CODEGEN-004 |
-| **v2.24.0** | S16 | IDE Problems \+ CI estável | TD-IDE-001, TD-TEST-002 |
+| **v2.24.0** | S16 | IDE Problems \+ CI estÃ¡vel | TD-IDE-001, TD-TEST-002 |
 
-† parcialmente fechado em v2.17.0
+â€  parcialmente fechado em v2.17.0
 
 ---
 
-## Critérios de aceite por tema (para programar versões)
+## CritÃ©rios de aceite por tema (para programar versÃµes)
 
 ### Paridade run/build (S10)
 
 - Com `gcc`/`clang` no PATH: `crab-pascal build tests/fixtures/string_conformance.pas` compila, executa, stdout = `run`.
-- Sem toolchain: `build` exit ≠ 0 e mensagem menciona compilador C / arquivo `.c` gerado.
+- Sem toolchain: `build` exit â‰  0 e mensagem menciona compilador C / arquivo `.c` gerado.
 - C gerado usa apenas `pascal_*` para builtins de string (incl. `Trim`).
 
 ### Codegen OO (S13)
 
-- Fixture property `read F write F`: mesmo resultado em `run` e binário `build`.
-- Fixture método com corpo: não retorna default silencioso.
+- Fixture property `read F write F`: mesmo resultado em `run` e binÃ¡rio `build`.
+- Fixture mÃ©todo com corpo: nÃ£o retorna default silencioso.
 - Fixture `try/except` \+ `raise`: comportamento equivalente ao runtime.
 
 ### Parser (S11)
@@ -140,17 +140,17 @@ flowchart LR
 ### IDE (S16)
 
 - Erro de `check` aparece em **Problems** com linha/coluna.
-- Documentar diferença `build` vs `build-exe` na extensão.
+- Documentar diferenÃ§a `build` vs `build-exe` na extensÃ£o.
 
 ---
 
 ## Gate de estabilidade E2E (Horse/CRUD)
 
-**Definição:** só considerar “estável para marketplace” quando:
+**DefiniÃ§Ã£o:** sÃ³ considerar “estÃ¡vel para marketplace” quando:
 
 - **Horse API E2E**: servidor sobe, aceita request HTTP real, executa handler Pascal e responde `200` com payload esperado.
-- **CRUD E2E (mínimo)**: servidor sobe e responde rota principal (`/produtos`) com JSON válido (e, no futuro, fluxo completo GET/POST/PUT/DELETE).
-- **Robustez de porta**: porta ocupada não quebra execução (fallback para porta livre, ou `Listen(0)`).
+- **CRUD E2E (mÃ­nimo)**: servidor sobe e responde rota principal (`/produtos`) com JSON vÃ¡lido (e, no futuro, fluxo completo GET/POST/PUT/DELETE).
+- **Robustez de porta**: porta ocupada nÃ£o quebra execuÃ§Ã£o (fallback para porta livre, ou `Listen(0)`).
 
 **Status atual:** gate inicial implementado com `tests/horse_e2e.rs` e fixtures em `tests/fixtures/`.
 
@@ -158,8 +158,8 @@ flowchart LR
 
 ## Como manter este documento
 
-1. Ao fechar uma release: mover IDs para a seção **Fechado** com versão.
+1. Ao fechar uma release: mover IDs para a seÃ§Ã£o **Fechado** com versÃ£o.
 2. Ao abrir auditoria nova: copiar achados para tabela P0/P1 e atualizar CSV do board.
-3. Não duplicar evidência de código aqui — apontar para `docs/audit/*.md` e linhas no repo.
+3. NÃ£o duplicar evidÃªncia de cÃ³digo aqui â€” apontar para `docs/audit/*.md` e linhas no repo.
 
-**Próxima revisão sugerida:** após tag **v2.18.0** (Sprint 10).
+**PrÃ³xima revisÃ£o sugerida:** apÃ³s tag **v2.18.0** (Sprint 10).
