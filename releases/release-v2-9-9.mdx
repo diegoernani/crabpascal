@@ -16,7 +16,7 @@ O comando `check` e a IDE passam a reportar **linha e coluna reais** nos erros d
 
 - Módulo `src/span.rs` (offset UTF-8 → linha/coluna 1-based).
 - Lexer: `last_token_span`, localização do token emitido (não do peek).
-- Parser: `ParseError \{ line, column }`, `quiet_diagnostics`, `current_span_start`.
+- Parser: `ParseError \\{ line, column }`, `quiet_diagnostics`, `current_span_start`.
 - `check_file`: consome posição real; sem `println!` de parse no modo check.
 - Testes: `tests/check_diagnostics.rs` \+ fixtures em `tests/fixtures/syntax/`.
 

@@ -13,7 +13,7 @@ description: "CrabPascal docs - Sprint 11 — Review (v2.19.0)"
 - **Parser:** class fields `FX,FY: Integer` geram múltiplos `FieldDefinition` (sem perder nomes).
 - **Parser:** `class(TBase, IFoo, IBar)` popula `interfaces` no AST.
 - **Lexer/Parser:** token `out` e parâmetros `out` tratados como `var`.
-- **Fix crítico:** parsing de genéricos `<...>` não pula mais o token `.` após `>`.
+- **Fix crítico:** parsing de genéricos `&lt;...&gt;` não pula mais o token `.` após `&gt;`.
 - **Semântica:** `GenericInstance` compatível consigo mesmo (evita falso type mismatch).
 - **Testes:** `tests/parser_hardening.rs` \+ correção de race em `run_build_parity` (arquivos temporários únicos).
 
