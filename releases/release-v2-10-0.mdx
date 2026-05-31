@@ -1,0 +1,19 @@
+---
+title: "Release v2.10.0 — System / Namespaces (Sprint 2)"
+description: "CrabPascal docs - Release v2.10.0 — System / Namespaces (Sprint 2)"
+---
+
+# Release v2.10.0 — System / Namespaces (Sprint 2)
+
+**Tag:** `v2.10.0`
+
+## Resumo
+
+Suporte explícito a `uses System.SysUtils` com arquivos em `rtl/sys/` e resolução por nome pontuado (`System.SysUtils.pas`).
+
+## Validar
+
+```powershell
+cargo test
+.\target\debug\crab-pascal.exe run tests\fixtures\system_sysutils_ok.pas
+```

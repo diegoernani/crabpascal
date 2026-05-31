@@ -1,0 +1,20 @@
+---
+title: "Release v2.16.0 — Unicode UTF-16 (Sprint 8)"
+description: "CrabPascal docs - Release v2.16.0 — Unicode UTF-16 (Sprint 8)"
+---
+
+# Release v2.16.0 — Unicode UTF-16 (Sprint 8)
+
+**Tag:** `v2.16.0`
+
+## Resumo
+
+Funções de string Delphi passam a usar code units UTF-16 (1-based), alinhadas ao modelo UnicodeString moderno.
+
+## Validar
+
+```powershell
+cargo test --test unicode_conformance
+cargo test --test string_conformance
+cargo test pascal_strings
+```
