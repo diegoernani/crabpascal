@@ -1,0 +1,59 @@
+---
+title: "Auditoria (Lucas) — Backend, runtime, codegen e paridade run/build (pós v2.16.0)"
+description: "CrabPascal docs - Auditoria (Lucas) — Backend, runtime, codegen e paridade run/build (pós v2.16.0)"
+---
+
+# Auditoria (Lucas) — Backend, runtime, codegen e paridade run/build (pós v2.16.0)
+
+## Resumo do que foi auditado
+
+- Código C gerado pelo codegen: `src/codegen/mod.rs` e `src/project/mod.rs`
+- Runtime / fallback: `src/complete_runtime.rs` (pontos onde divergência “passa escondido”)
+- Stubs C (helpers de string): `src/stubs.c`
+- CLI build: comportamento quando **não há toolchain C**
+- Execução de “matriz mínima” com fixtures: `string_conformance`, `class_property`, `dict_trygetvalue_var`
+
+## Débitos confirmados no código
+
+| ID | Tipo | Prioridade | Área | Arquivo | Linha | Evidência | Impacto | Sprint sugerida | Dono sugerido | Teste recomendado | Risco se ignorar |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| TD-RUNTIME-001 | Paridade run/build / falso sucesso | P0 | Build | `src/project/mod.rs` | 192-246 | `// TODO: Implement actual build process` e, no `build_source`, quando `self.compiler.is_none()`: “Usando Runtime Interno… Executando diretamente da AST” | `crab-pascal build` pode “parecer que funciona” sem realmente compilar/ligar C, mascarando divergência e gerando falso sucesso | S10 (v2.18.0) | Lucas | Criar testes que validem artefatos C e/ou compilação real (quando toolchain existir) \+ checagem de “build não executa AST” | Alto: falsas garantias de compatibilidade |
+| TD-CODEGEN-001 | Codegen C incompleto (properties) | P0 | Codegen | `src/codegen/mod.rs` | 85-109 | `Declaration::Property`: “Properties são convertidas em uma variável \+ comentário com getter/setter” e gera apenas backing field \+ comentários | Quando build compila C, properties não têm getter/setter reais; runtime e build divergem | S13 (v2.21.0) | Lucas | Fixture: `property X read FValue write FValue` em class \+ validação via `build` com toolchain C | Alto: OO quebra em `build` |
+| TD-CODEGEN-002 | Codegen C incompleto (métodos) | P0 | Codegen | `src/codegen/mod.rs` | 840-874 | `generate_method_function_implementation`: corpo “apenas comentário” e `return default`; `generate_method_procedure_implementation`: corpo “apenas comentário” | Métodos em `build` retornam default/sem efeito; comportamento discrepante de `run` | S13 (v2.21.0) | Lucas | Fixture de método simples (read/write via accessors; exception-aware se possível) rodando `run` vs `build` | Alto: semelhança superficial com runtime |
+| TD-CODEGEN-003 | Codegen C incompleto (exceptions) | P0 | Codegen | `src/codegen/mod.rs` | 385-427 | `generate_try_statement`: try/except/finally viram comentários (“simulated”); `generate_raise_statement`: apenas comentário | `build` não executa semantics de exceptions (try/except/finally/raise), causando divergência e falso sucesso | S13 (v2.21.0) | Lucas \+ Helena | Fixture `try_except_simple.pas`/`try_finally.pas` rodando `run` vs `build` | Alto: exceptions não são confiáveis em `build` |
+| TD-CODEGEN-004 | runtime-only em estruturas Delphi | P1 | Codegen | `src/codegen/mod.rs` | 285-288, 377-380 | `Statement::ForIn`: “Convertido em comentário em C (runtime-only)”; `Statement::With`: “não implementado (runtime-only feature)” | Programas com `for..in`/`with` funcionam no runtime, mas não no C | S15 (v2.23.0) ou S10/S13 | Lucas | Fixtures específicas: `for..in`/`with` e validação `run/build` | Médio/alto: compat Delphi incompleta |
+| TD-CODEGEN-005 | VMT / hierarquia incompleta | P1 | Codegen | `src/codegen/mod.rs` | 885-890 | VMT init: “`._parent = NULL,  // TODO: Link to parent VMT`” | Inheritance/polimorfismo podem falhar no C mesmo que no runtime funcione | S13 (v2.21.0) | Lucas | Fixture de herança virtual chamando método base/override | Alto em OO |
+| TD-CODEGEN-006 | Codegen strings ignora helpers de string | P0 | Codegen \+ stubs | `src/codegen/mod.rs` \+ `src/stubs.c` \+ artefato C gerado | `codegen`: 472-477; `stubs.c`: 63-97; `string_conformance.c`: 6-11 | codegen de `FunctionCall` emite `Length("año")` diretamente; stubs definem `pascal_Length`; artefato C gerado: `printf("%d\n", Length("año"));` | Com toolchain C, o C gerado chama `Length`/`Copy`/`Pos` sem helpers (`pascal_*`), então `build` não vai replicar a semântica | S10/S13 (v2.18/v2.21) | Lucas | Ajustar/validar mapping: teste `string_conformance` em `build` com gcc/clang e comparar stdout | Alto: strings em `build` não confiáveis |
+| TD-RUNTIME-002 | Masking de erros em access de record/field | P1 | Runtime | `src/complete_runtime.rs` | 4633-4637 | Em `evaluate_record_access`: em `_ =&gt;` (“Unexpected type…”) retorna `Ok(Value::Integer(0))` (sem erro) | Erros de tipo/uso de campo inexistente podem virar sucesso silencioso | S11/S10 | Helena (runtime) \+ Lucas | Fixture de acesso a field inexistente; validar que `check`/runtime falha em vez de retornar 0 | Médio/alto: difícil depurar |
+| TD-RUNTIME-003 | Masking de erros em fallback de métodos | P1 | Runtime | `src/complete_runtime.rs` | 4521-4524 | fallback: “`executado (fallback)`” e `Ok(Value::Object(method_call.object.clone()))` | Chamadas inválidas podem resultar em objetos “placeholders”, mascarando falhas reais | S10/S13 | Helena | Fixture de chamada a método inexistente; validar diagnóstico | Médio |
+| TD-TEST-001 | Falta cobertura de paridade run vs build | P1 | Testes | `tests/*.rs` | (estrutura) | Suites existentes focam em `run` (ex.: `tests/string_conformance.rs`, `tests/properties_runtime.rs`) e não há suite dedicada `build` | Divergência run/build não é detectada automaticamente no CI | S9/S10 | Marina | Criar testes que executem `build` e compare stdout (quando toolchain existir) | Alto para regressões |
+| TD-SEMANTIC-001 | Baseline de testes quebrada (semântica) | P2 | Testes/semântica | `src/semantic/mod.rs` | 1370-1381 | Teste exige mensagem: `contains("Undefined variable")`; no `cargo test` houve falha nesse assert | `cargo test` não é baseline confiável; reduz velocidade de QA | S9 | Bruno/Marina | Ajustar/validar mensagens de erro e garantir `cargo test` verde | Médio |
+
+## Matriz mínima executada (run/build)
+
+### Comando(s) executados
+
+- `cargo test` (falhou em 1 teste unitário de semântica; evidência no relatório)
+- `crab-pascal run ...` para fixtures:
+  - `tests/fixtures/string_conformance.pas`
+  - `tests/fixtures/class_property.pas`
+  - `tests/fixtures/dict_trygetvalue_var.pas`
+- `crab-pascal build ...` para as mesmas fixtures (sem toolchain C detectada no sistema)
+
+### Observação central (run/build)
+
+Quando **nenhum compilador C** foi detectado, o caminho `build` usou:
+
+- “Runtime Interno do CrabPascal (sem dependências!)”
+- “Executando diretamente da AST…”
+
+Isso torna `build` **não equivalente** a “compilar C com gcc/clang”.
+
+## Observações adicionais relevantes (evidências rápidas)
+
+- Artefato C gerado em `build` para `string_conformance` chama `Length/Copy/Pos/Trim/...` diretamente, sem helpers `pascal_*`:
+  - `tests/fixtures/string_conformance.c`:
+    - `printf("%d\n", Length("año"));` (linha 6)
+    - `printf("%d\n", Copy("abcdef", 2, 3));` (linha 7)
+    - etc.
+- `src/project/mod.rs` documenta explicitamente o fallback de AST quando toolchain C não existe.

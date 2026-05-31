@@ -151,7 +151,8 @@
           "technical-debt/backlog",
           "technical-debt/audit/02-bruno-parser-ast-semantic",
           "technical-debt/audit/03-helena-rtl-unicode-properties",
-          "technical-debt/audit/01-lucas-backend-run-build"
+          "technical-debt/audit/01-lucas-backend-run-build",
+          "technical-debt/audit/01-lucas-runtime-codegen"
         ]
       },
       {
