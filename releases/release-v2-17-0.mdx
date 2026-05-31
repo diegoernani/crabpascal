@@ -1,0 +1,34 @@
+---
+title: "Release v2.17.0 — Paridade run/build (baseline)"
+description: "CrabPascal docs - Release v2.17.0 — Paridade run/build (baseline)"
+---
+
+# Release v2.17.0 — Paridade run/build (baseline)
+
+**Tag:** `v2.17.0`\
+**Sprint:** 9
+
+## Resumo
+
+Esta release torna o pipeline de qualidade mais honesto: testes de paridade entre `run` e `build`, semântica estável para variáveis indefinidas, e `build` que não simula sucesso sem compilador C.
+
+## Mudanças principais
+
+- **Semântica:** erro `Undefined variable` em assignments para identificadores não declarados.
+- **Build:** sem gcc/clang/msvc, `build` retorna erro após gerar `.c` (não executa runtime interno como se tivesse compilado).
+- **Codegen:** chamadas SysUtils de string mapeadas para `pascal_*` em `stubs.c`.
+- **Runtime:** construtor genérico `TDictionary&lt;...&gt;.Create` e `TryGetValue` com parâmetro `var`.
+- **Testes:** `tests/run_build_parity.rs`.
+- **Docs:** `docs/DEBITO_TECNICO_FUTURO.md` para planejar v2.18\+.
+
+## Testes
+
+```bash
+cargo test --lib
+cargo test --test run_build_parity
+cargo test --test generics_collections
+```
+
+## Débitos conhecidos (próximas versões)
+
+Ver `docs/DEBITO_TECNICO_FUTURO.md` — foco S10: paridade stdout com toolchain C e `Trim` no codegen.

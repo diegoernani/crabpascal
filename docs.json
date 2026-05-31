@@ -48,13 +48,19 @@
     "groups": [
       {
         "group": "Inicio",
-        "pages": []
+        "pages": [
+          "getting-started/comece-aqui",
+          "getting-started/quickstart",
+          "getting-started/leia-primeiro",
+          "README"
+        ]
       },
       {
         "group": "Essenciais",
         "pages": [
           "essentials/project-philosophy",
-          "essentials/documentation-map"
+          "essentials/documentation-map",
+          "essentials/project-status"
         ]
       },
       {
@@ -62,7 +68,15 @@
         "pages": [
           "usage/como-criar-logo-profissional",
           "usage/guia-rapido",
-          "usage/postman-guide"
+          "usage/postman-guide",
+          "usage/configuracao",
+          "usage/urgente-revogar-token",
+          "usage/guia-publicacao-vscode-marketplace",
+          "usage/auto-instalacao-compilador",
+          "usage/guia-integracao-vscode-cursor",
+          "usage/integracao-ide-completa-v2-0-0",
+          "usage/opcoes-proximos-passos-v2-0-0",
+          "usage/resposta-extensao-vscode"
         ]
       },
       {
@@ -70,17 +84,48 @@
         "pages": [
           {
             "group": "Sprints (kickoff)",
-            "pages": []
+            "pages": [
+              "roadmap/sprints/sprint-5-kickoff",
+              "roadmap/sprints/sprint-7-kickoff",
+              "roadmap/sprints/sprint-12-kickoff",
+              "roadmap/sprints/sprint-13-kickoff",
+              "roadmap/sprints/sprint-14-kickoff",
+              "roadmap/sprints/sprint-3-kickoff",
+              "roadmap/sprints/sprint-4-kickoff",
+              "roadmap/sprints/sprint-11-kickoff",
+              "roadmap/sprints/sprint-9-kickoff",
+              "roadmap/sprints/sprint-10-kickoff",
+              "roadmap/sprints/sprint-16-kickoff",
+              "roadmap/sprints/sprint-15-kickoff",
+              "roadmap/sprints/sprint-2-kickoff",
+              "roadmap/sprints/sprint-17-kickoff",
+              "roadmap/sprints/sprint-1-kickoff"
+            ]
           },
           {
             "group": "Sprints (review)",
             "pages": [
               "roadmap/sprints/sprint-13-review",
               "roadmap/sprints/sprint-14-review",
-              "roadmap/sprints/sprint-12-review"
+              "roadmap/sprints/sprint-12-review",
+              "roadmap/sprints/sprint-8-review",
+              "roadmap/sprints/sprint-5-review",
+              "roadmap/sprints/sprint-4-review",
+              "roadmap/sprints/sprint-3-review",
+              "roadmap/sprints/sprint-7-review",
+              "roadmap/sprints/sprint-10-review",
+              "roadmap/sprints/sprint-6-review",
+              "roadmap/sprints/sprint-9-review",
+              "roadmap/sprints/sprint-11-review",
+              "roadmap/sprints/sprint-2-review",
+              "roadmap/sprints/sprint-15-review",
+              "roadmap/sprints/sprint-16-review",
+              "roadmap/sprints/sprint-1-review"
             ]
           },
-          "roadmap/review-360"
+          "roadmap/review-360",
+          "roadmap/sprints-overview",
+          "roadmap/squad"
         ]
       },
       {
@@ -89,7 +134,10 @@
           {
             "group": "Tecnico",
             "pages": [
-              "architecture/technical/desafios-solucoes"
+              "architecture/technical/desafios-solucoes",
+              "architecture/technical/tecnico-detalhado",
+              "architecture/technical/desafios-e-solucoes",
+              "architecture/technical/arquitetura-design"
             ]
           },
           "architecture/nova-arquitetura-v2-0-1",
@@ -99,7 +147,11 @@
       {
         "group": "Debito tecnico",
         "pages": [
-          "technical-debt/audit-overview"
+          "technical-debt/audit-overview",
+          "technical-debt/backlog",
+          "technical-debt/audit/02-bruno-parser-ast-semantic",
+          "technical-debt/audit/03-helena-rtl-unicode-properties",
+          "technical-debt/audit/01-lucas-backend-run-build"
         ]
       },
       {
@@ -111,13 +163,27 @@
           "releases/release-v2-15-0",
           "releases/release-v2-16-0",
           "releases/release-v2-10-0",
-          "releases/release-v2-11-0"
+          "releases/release-v2-11-0",
+          "releases/release-v2-20-0",
+          "releases/release-v2-22-0",
+          "releases/release-v2-21-0",
+          "releases/release-v2-18-0",
+          "releases/release-v2-19-0",
+          "releases/release-v2-9-9",
+          "releases/release-v2-17-0",
+          "releases/release-v2-9-0-auto-instalacao",
+          "releases/release-v2-8-3-hotfix-critico",
+          "releases/release-v2-8-4-hotfix-seguranca"
         ]
       },
       {
         "group": "Recursos",
         "pages": [
-          "resources/curso-compiladores-crabpascal"
+          "resources/curso-compiladores-crabpascal",
+          "resources/handbooks-externos",
+          "resources/readme",
+          "resources/cronograma-crab-pascal-1-5-2",
+          "resources/analise-biblia-delphi-v1-7"
         ]
       },
       {
@@ -133,7 +199,28 @@
               "history/improvements/marco-historico-v2-0-0-100-percent",
               "history/improvements/roadmap-v1-5-1-to-v2-0-0",
               "history/improvements/status-v1-5",
-              "history/improvements/indice-v1-5"
+              "history/improvements/indice-v1-5",
+              "history/improvements/testes-v1-6-0-resultado",
+              "history/improvements/indice-releases",
+              "history/improvements/relatorio-v2-2-0-preprocessor-fpc",
+              "history/improvements/testes-v1-5-2-resultado",
+              "history/improvements/sumario-v2-8",
+              "history/improvements/relatorio-v2-6-0-recursos-avancados",
+              "history/improvements/relatorio-v2-7-0-killer-app",
+              "history/improvements/relatorio-v2-3-0-api-completa",
+              "history/improvements/relatorio-exemplos-v2-0-0",
+              "history/improvements/relatorio-v1-5-1-preprocessor",
+              "history/improvements/relatorio-v2-1-0-preprocessor-avancado",
+              "history/improvements/relatorio-v2-4-0-performance",
+              "history/improvements/relatorio-v2-8-0-release-final",
+              "history/improvements/release-v1-7-e-v1-8-completas",
+              "history/improvements/testes-v1-5-3-resultado",
+              "history/improvements/navegacao-v2-0",
+              "history/improvements/relatorio-v2-5-0-vscode-extension",
+              "history/improvements/relatorio-v1-5-2-type-safety",
+              "history/improvements/conquista-v2-0-0-epica",
+              "history/improvements/relatorio-remocao-hardcode-v2-1-0",
+              "history/improvements/relatorio-v1-5-3-generics"
             ]
           },
           {
@@ -150,14 +237,32 @@
               "history/plans/checklist-v1-7-0-completo",
               "history/plans/conhecimento-handbook",
               "history/plans/plano-try-except-finally",
-              "history/plans/analise-melhorias"
+              "history/plans/analise-melhorias",
+              "history/plans/plano-v1-8-0-pragmatico",
+              "history/plans/plano-v1-9-0-acelerado",
+              "history/plans/estrutura-roadmap",
+              "history/plans/organizacao-documentacao",
+              "history/plans/apresentacao",
+              "history/plans/limpeza-codigo-v1-7-plan",
+              "history/plans/plano-v2-0-0-final",
+              "history/plans/relatorio-noturno-v1-5-3-plan",
+              "history/plans/conquista-epica-17-out-2025",
+              "history/plans/readme",
+              "history/plans/reorganizacao-final",
+              "history/plans/indice-roadmap"
             ]
           },
           "history/versao-1-0",
           "history/sessao-epica-v1-7-v1-8-v1-9-completa",
           "history/progresso-sessao-epica-v1-7-0",
           "history/versao-1-5",
-          "history/verificacao-v1-7-v1-8-v1-9"
+          "history/verificacao-v1-7-v1-8-v1-9",
+          "history/resumo-final-v1-6-0",
+          "history/indice-sessao-23-24-out-2025",
+          "history/sumario-executivo-sessao",
+          "history/progresso-v1-7-0-dia-1",
+          "history/historico-projeto",
+          "history/versao-1-4"
         ]
       },
       {
@@ -192,7 +297,10 @@
         "pages": [
           {
             "group": "Sprints (kickoff)",
-            "pages": []
+            "pages": [
+              "roadmap/sprints/sprint-6-kickoff",
+              "roadmap/sprints/sprint-8-kickoff"
+            ]
           }
         ]
       },
@@ -202,7 +310,10 @@
       },
       {
         "group": "Debito tecnico",
-        "pages": []
+        "pages": [
+          "technical-debt/audit/04-marina-tests-harness",
+          "technical-debt/audit/05-rafael-ide-ci-docs"
+        ]
       },
       {
         "group": "Historico e melhorias",

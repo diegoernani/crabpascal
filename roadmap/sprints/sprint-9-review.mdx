@@ -1,0 +1,25 @@
+---
+title: "Sprint 9 — Review (v2.17.0)"
+description: "CrabPascal docs - Sprint 9 — Review (v2.17.0)"
+---
+
+# Sprint 9 — Review (v2.17.0)
+
+**Fechamento:** 2026-05-26
+
+## Entregas
+
+- Baseline semântica: variável indefinida em assignment (`Undefined variable`).
+- `tests/run_build_parity.rs`: paridade inicial run/build (4 testes).
+- `build` sem toolchain C falha com mensagem clara (sem fallback AST com sucesso falso).
+- Codegen: builtins de string → `pascal_Length`, `pascal_Copy`, `pascal_Pos`, `pascal_UpperCase`, `pascal_LowerCase`.
+- Runtime: `TDictionary<String,Integer>.Create` aloca instância; `TryGetValue` com `var`.
+- Backlog vivo: `docs/DEBITO_TECNICO_FUTURO.md`.
+
+## Aprendizados
+
+1. Paridade exige testes que falham quando `build` mente — não só quando `run` passa.
+2. `Trim` no parser ainda gera hard-cast no C; fechar em S10/S11 com parser.
+3. Débito P0 de OO/exceptions permanece em S13; S9 abriu medição, não fechou codegen completo.
+
+**Tag `v2.17.0` aprovada.**

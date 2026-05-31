@@ -1,0 +1,25 @@
+---
+title: "Sprint 10 — Review (v2.18.0)"
+description: "CrabPascal docs - Sprint 10 — Review (v2.18.0)"
+---
+
+# Sprint 10 — Review (v2.18.0)
+
+**Fechamento:** 2026-05-26
+
+## Entregas
+
+- Parser: `Trim`/`Copy`/etc. não confundidos com tipos (`T` \+ maiúscula; denylist builtins).
+- Codegen: forward decls `pascal_*`, `WriteLn` com `%s` para strings, `return 0` em `main`.
+- Testes: `run_build_parity` ampliado (Trim, gate nativo com skip sem gcc).
+- Compilador **v2.18.0** tagado.
+
+## Não entregue (adiado de propósito)
+
+- **Plugins VS Code / Cursor:** versão de marketplace **não** atualizada.
+- Motivo: critério de estabilidade exige paridade `run` vs binário `build` com toolchain C; ambiente local e CI atual sem gcc → gate skipped.
+- Próximo passo: CI com `gcc` \+ publicar extensão **v2.19.0** (ou patch v2.18.1) alinhada ao compilador.
+
+Ver `docs/DEBITO_TECNICO_FUTURO.md` → TD-MARKETPLACE-001.
+
+**Tag `v2.18.0` aprovada (compilador). Extensão lojas: mantém v2.17.0.**

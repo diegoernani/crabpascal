@@ -1,0 +1,23 @@
+---
+title: "Sprint 8 — Review (v2.16.0)"
+description: "CrabPascal docs - Sprint 8 — Review (v2.16.0)"
+---
+
+# Sprint 8 — Review (v2.16.0)
+
+**Fechamento:** 2026-05-26
+
+## Entregas
+
+- `pascal_strings`: `Length`/`Copy`/`Pos` em code units UTF-16 (`encode_utf16`).
+- `stubs.c`: contagem UTF-16 alinhada ao runtime.
+- Teste `unicode_conformance` (`año`→3, emoji→2 units).
+- Regressão `string_conformance` mantida.
+
+## Aprendizados
+
+1. Representação interna ainda é UTF-8 em `Value::String`; semântica é UTF-16 nos builtins.
+2. Buffer UTF-16 nativo e `PChar` wide ficam para evolução pós-roadmap.
+3. IO/JSON UTF-8↔UTF-16 explícito = próximo incremento.
+
+**Tag `v2.16.0` aprovada.**

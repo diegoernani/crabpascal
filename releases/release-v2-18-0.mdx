@@ -1,0 +1,32 @@
+---
+title: "Release v2.18.0 — Paridade strings run/build (Sprint 10)"
+description: "CrabPascal docs - Release v2.18.0 — Paridade strings run/build (Sprint 10)"
+---
+
+# Release v2.18.0 — Paridade strings run/build (Sprint 10)
+
+**Tag:** `v2.18.0`\
+**Sprint:** 10
+
+## Resumo
+
+Fecha TD-CODEGEN-006 (strings) e avança TD-RUNTIME-001: C gerado compila com stubs, `Trim` parseado como função, `WriteLn` emite formatos corretos.
+
+## Mudanças
+
+- **Parser:** funções SysUtils (`Trim`, `Length`, …) não são hard-cast.
+- **Codegen:** declarações `pascal_*`, `%s` para resultados string, `return 0`.
+- **Testes:** gate `build_string_conformance_stdout_matches_run_when_toolchain_present` (executa só com gcc/clang).
+
+## Extensão VS Code / Cursor
+
+**Não publicada nesta release.** Permanece v2.17.0 nas lojas até paridade nativa validada em CI (ver TD-MARKETPLACE-001).
+
+## Testes
+
+```bash
+cargo test --lib
+cargo test --test run_build_parity
+```
+
+Com gcc instalado, o teste de paridade nativa deve passar sem skip.

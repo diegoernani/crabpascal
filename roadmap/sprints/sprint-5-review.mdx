@@ -1,0 +1,23 @@
+---
+title: "Sprint 5 — Review (v2.13.0)"
+description: "CrabPascal docs - Sprint 5 — Review (v2.13.0)"
+---
+
+# Sprint 5 — Review (v2.13.0)
+
+**Fechamento:** 2026-05-26
+
+## Entregas
+
+- Módulo `src/pascal_strings.rs` (Length/Copy/Pos/Trim/Upper/Lower, 1-based).
+- Runtime delega para `pascal_strings`.
+- `stubs.c`: `pascal_Length`, `pascal_Pos`, `pascal_Copy`, `pascal_Trim`.
+- Teste `tests/string_conformance.rs`.
+
+## Aprendizados
+
+1. Centralizar strings evita drift run vs build.
+2. `Length` em UTF-8 = contagem de codepoints (pragmático até S8 Unicode).
+3. Paridade codegen completa com `build` fica como débito se o gerador C não emitir os helpers ainda.
+
+**Tag `v2.13.0` aprovada.**

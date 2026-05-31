@@ -1,0 +1,52 @@
+---
+title: "Sprint 2 — Planning + Kickoff (v2.10.0)"
+description: "CrabPascal docs - Sprint 2 — Planning + Kickoff (v2.10.0)"
+---
+
+# Sprint 2 — Planning \+ Kickoff (v2.10.0)
+
+**Data de início:** 2026-05-26\
+**Release alvo:** `v2.10.0` — System / Namespaces\
+**Depende de:** Sprint 1 (`v2.9.9`) ✅
+
+---
+
+## Cerimônia de Planning
+
+### Objetivo (Rafael)
+
+\> Projetos com `uses System.SysUtils` resolvem e rodam sem gambiarra de path. Layout RTL `rtl/sys` alinhado ao Delphi.
+
+### Dentro / Fora
+
+| Dentro | Fora |
+| --- | --- |
+| `rtl/sys/System.pas`, `System.SysUtils.pas` | Classes/Streams (S3) |
+| Resolver: nome pontuado \+ pasta `rtl/sys` | Exceptions (S4) |
+| Testes de resolução \+ exemplo canônico | UTF-16 (S8) |
+| `ProjectConfig` inclui `rtl/sys` | Spans na semântica (parcial S2 se sobrar tempo) |
+
+### Backlog
+
+| ID | Tarefa | Dono | Status |
+| --- | --- | --- | --- |
+| S2-01 | Criar shims `rtl/sys` | Bruno | ✅ Feito |
+| S2-02 | Resolver tenta `System.SysUtils.pas` e `rtl/sys` | Bruno | ✅ Feito |
+| S2-03 | `ProjectConfig` adiciona `rtl/sys` | Lucas | ✅ Feito |
+| S2-04 | Teste `uses System.SysUtils` (run) | Marina | ✅ Feito |
+| S2-05 | Testes unitários do resolver | Marina | ✅ Feito |
+| S2-06 | Review \+ release 2.10.0 | Rafael | ✅ Feito |
+
+### DoD
+
+- `System.SysUtils` resolve para `.pas` em `rtl/sys` ou `rtl/`
+- Exemplo canônico roda (`Trim`, `IntToStr`, etc.)
+- `cargo test` verde
+- Documentação em `SPRINTS_VERSOES.md` (entregas \+ aprendizados) — no fechamento S2
+- Tag `v2.10.0` \+ review — S2-06
+
+---
+
+## Kickoff
+
+Sprint 2 **iniciada** logo após tag `v2.9.9`. Squad tem autonomia para fechar bloqueios sem esperar PO.

@@ -1,0 +1,25 @@
+---
+title: "Sprint 11 — Review (v2.19.0)"
+description: "CrabPascal docs - Sprint 11 — Review (v2.19.0)"
+---
+
+# Sprint 11 — Review (v2.19.0)
+
+**Fechamento:** 2026-05-26
+
+## Entregas
+
+- **Parser:** `record` fields `A,B: Integer` geram múltiplos fields no AST.
+- **Parser:** class fields `FX,FY: Integer` geram múltiplos `FieldDefinition` (sem perder nomes).
+- **Parser:** `class(TBase, IFoo, IBar)` popula `interfaces` no AST.
+- **Lexer/Parser:** token `out` e parâmetros `out` tratados como `var`.
+- **Fix crítico:** parsing de genéricos `<...>` não pula mais o token `.` após `>`.
+- **Semântica:** `GenericInstance` compatível consigo mesmo (evita falso type mismatch).
+- **Testes:** `tests/parser_hardening.rs` \+ correção de race em `run_build_parity` (arquivos temporários únicos).
+
+## Débitos / próximos passos
+
+- Parser avançado (interfaces declaradas / `interface` type) continua como futuro.
+- Publicação de plugins continua condicionada ao gate de paridade nativa (TD-MARKETPLACE-001).
+
+**Tag `v2.19.0` aprovada.**

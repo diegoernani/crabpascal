@@ -1,0 +1,28 @@
+---
+title: "Auditoria (Marina) — Testes, fixtures e harness (pós v2.16.0)"
+description: "CrabPascal docs - Auditoria (Marina) — Testes, fixtures e harness (pós v2.16.0)"
+---
+
+# Auditoria (Marina) — Testes, fixtures e harness (pós v2.16.0)
+
+## Resumo do que foi auditado
+
+- Suites Rust em `tests/*.rs`
+- Fixtures em `tests/fixtures/*.pas`
+- Scripts de exemplo/harness (especialmente dependências externas)
+- Qualidade de baseline via `cargo test`
+
+## Débitos confirmados no código
+
+| ID | Tipo | Prioridade | Área | Arquivo | Linha | Evidência | Impacto | Sprint sugerida | Dono sugerido | Teste recomendado | Risco se ignorar |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| TD-TEST-001 | Falta de cobertura de paridade `run` vs `build` | P1 | Testes | `tests/*.rs` (padrão) \+ evidência via execução | (ex.: `tests/properties_runtime.rs`) | `tests/properties_runtime.rs` usa `.arg(\"run\")` (não `build`). Mesma estrutura ocorre nas demais suítes listadas. Ex.: `properties_runtime`: linhas 27-30 usam `"run"`. | Divergências reais de `build` (codegen incompleto) não são detectadas automaticamente no CI | S10 (v2.18.0) | Marina | Criar testes que executem `crab-pascal build` e validem stdout/artefatos C (quando toolchain existir). Alternativamente, “fail open” com evidência explícita | Alto: regressões em build sem aviso |
+| TD-TEST-002 | Harness de exemplos depende de serviços externos locais (fragilidade/CI) | P1 | Harness/Exemplos | `tests/test_exemplos_completo.ps1` | 133-145 | Script inicia `Start-Job` rodando `crab-pascal ... examples/...` e faz `Invoke-WebRequest` para `http://localhost:9001/api/...` | CI falhará sem servidor/portas/endpoints; dificulta reproduzir falhas | S16 (v2.24.0) | Marina \+ Rafael | Criar smoke/mock offline (sem HTTP real) ou detectar disponibilidade do serviço e marcar como “skipped” com razão | Médio/alto |
+| TD-TEST-003 | baseline `cargo test` não está 100% verde | P2 | QA | `src/semantic/mod.rs` (teste unit) | 1370-1381 | `cargo test` falhou em `semantic::tests::test_undefined_variable` (assert de mensagem). O teste espera `contains(\"Undefined variable\")` e o resultado não atende. | QA depende de baseline; falhas “por detalhe” reduzem confiança na auditoria | S9 (v2.17.0) | Bruno \+ Marina | Corrigir expectativa de mensagem ou garantir coerência de erros (com evidência do erro real) | Médio |
+| TD-TEST-004 | Documentação de cobertura de testes potencialmente desatualizada | P3 | Docs/QA | `tests/README.md` | 1-74 | README diz “Tests - CrabPascal v2.8.0” e lista cobertura/estatus; pode não refletir o estado atual pós v2.16.0 | Pode induzir falsa segurança sobre o que está coberto/validado | S9/S16 | Rafael \+ Marina | Atualizar README para refletir v2.16.0 (ou mover para changelog de QA) | Baixo/médio |
+
+## Evidências rápidas (como os testes rodam hoje)
+
+- `tests/properties_runtime.rs` executa `crab-pascal run tests/fixtures/*.pas`
+- `tests/string_conformance.rs` e `tests/unicode_conformance.rs` seguem o mesmo padrão
+- Não foi encontrada, nas suítes existentes, uma chamada equivalente para `crab-pascal build` em CI

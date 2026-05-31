@@ -1,0 +1,38 @@
+---
+title: "Sprint 17 — Kickoff"
+description: "CRUD completo + class var + System.JSON — em andamento"
+---
+
+# Sprint 17 — Kickoff (CRUD completo \+ `class var` \+ `System.JSON`)
+
+**Status:** 🔄 **Em andamento** (2026-05-31) — trabalho iniciado na working tree, ainda sem review/tag.
+
+## Objetivo
+
+Destravar o exemplo CRUD real (`examples/crud/ProdutoService.pas`) e entregar fluxo REST completo com listagem via serviço Pascal, não só fixtures inline.
+
+## Escopo (P0)
+
+| Item | Descrição | Estado |
+| --- | --- | --- |
+| TD-PARSER-005 | Parser: `class var` dentro de classes em units | ✅ em código (não commitado) |
+| TD-PARSER-006 | `ProdutoService.pas` parseável (forward methods \+ generics) | ✅ teste unitário verde |
+| TD-RTL-JSON-001 | Shim `rtl/sys/System.JSON.pas` | ✅ arquivo criado (não commitado) |
+| TD-RUNTIME-JSON-001 | Runtime: `TJSONObject` / `AddPair` / serialização mínima | 🔄 em código (não commitado) |
+| TD-TEST-E2E-003 | E2E: `GET /produtos` via `TProdutoService.ListarProdutos` | ⏳ pendente |
+| TD-TEST-E2E-004 | E2E: fluxo GET/POST/PUT/DELETE completo | ⏳ pendente |
+
+## Critérios de aceite
+
+- `cargo test --lib test_parse_produto_service_unit` passa.
+- `cargo test --lib test_parse_class_var_forward_methods_interface` passa.
+- `cargo test --test horse_e2e` inclui cenário com `ProdutoService` real (listagem JSON).
+- `examples/crud/crud_list_e2e.pas` roda via `run` e retorna JSON de produtos.
+
+## Roadmap pós-S17 (proposta)
+
+| Sprint | Versão alvo | Foco |
+| --- | --- | --- |
+| **S18** | v2.26.0 | Serialização JSON completa (`TJSONArray`, números, bool) |
+| **S19** | v2.27.0 | Paridade `build` nativo para Horse (HTTP real no C) |
+| **S20** | v2.28.0 | IDE Problems \+ gate CI gcc/clang → marketplace plugins |

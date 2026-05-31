@@ -1,0 +1,28 @@
+---
+title: "Sprint 2 — Review (v2.10.0)"
+description: "CrabPascal docs - Sprint 2 — Review (v2.10.0)"
+---
+
+# Sprint 2 — Review (v2.10.0)
+
+**Fechamento:** 2026-05-26
+
+## Entregas
+
+- `rtl/sys/System.pas` e `System.SysUtils.pas` (shims namespace Delphi).
+- `UnitResolver`: busca `System.SysUtils.pas` antes de `SysUtils.pas`; `rtl/sys` via namespace e `CARGO_MANIFEST_DIR`.
+- `ProjectConfig`: `rtl/sys` nos search paths **antes** de `rtl/`.
+- Testes: `unit_resolver::test_resolve_system_sysutils_rtl_sys`, `tests/system_units.rs`.
+
+## Aprendizados
+
+1. Já existia `rtl/SysUtils.pas`; o ganho foi **layout \+ nome de arquivo pontuado**, não reimplementar SysUtils.
+2. Ordem dos search paths importa: `rtl/sys` deve vir antes de `rtl/` para preferir o shim namespaced.
+3. `env!("CARGO_MANIFEST_DIR")` no resolver permite testes estáveis fora do cwd.
+
+## Débito
+
+- `System` unit ainda não exporta tipos além de reexport implícito via uses no shim.
+- Publicar extensão `2.10.0` no Open VSX fica para quando o PO voltar (opcional).
+
+**Aprovado para tag `v2.10.0`.**
