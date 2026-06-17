@@ -1,0 +1,33 @@
+---
+title: "Release v2.9.9 — Diagnósticos (Sprint 1)"
+description: "CrabPascal docs - Release v2.9.9 — Diagnósticos (Sprint 1)"
+---
+
+# Release v2.9.9 — Diagnósticos (Sprint 1)
+
+**Data:** 2026-05-26\
+**Tag:** `v2.9.9`
+
+## Resumo
+
+O comando `check` e a IDE passam a reportar **linha e coluna reais** nos erros de parse, no formato `arquivo:linha:coluna: error: mensagem`.
+
+## Entregas
+
+- Módulo `src/span.rs` (offset UTF-8 → linha/coluna 1-based).
+- Lexer: `last_token_span`, localização do token emitido (não do peek).
+- Parser: `ParseError \\{ line, column }`, `quiet_diagnostics`, `current_span_start`.
+- `check_file`: consome posição real; sem `println!` de parse no modo check.
+- Testes: `tests/check_diagnostics.rs` \+ fixtures em `tests/fixtures/syntax/`.
+
+## Como validar
+
+```powershell
+cargo test
+.\target\debug\crab-pascal.exe check tests\fixtures\syntax\bad_begin_line.pas
+```
+
+## Notas
+
+- Erros **semânticos** ainda podem aparecer em `1:1` (Sprint 2\+).
+- `test_exemplos_completo.ps1` depende de servidores Horse no ambiente; fora do escopo desta release.

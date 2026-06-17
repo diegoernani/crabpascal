@@ -1,0 +1,38 @@
+---
+title: "Sprint 16 — Kickoff (Horse routing + QA E2E)"
+description: "CrabPascal docs - Sprint 16 — Kickoff (Horse routing + QA E2E)"
+---
+
+# Sprint 16 — Kickoff (Horse routing \+ QA E2E)
+
+## Objetivo
+
+Elevar a qualidade do runtime Horse para apps CRUD reais: **rotas parametrizadas**, **contexto Req/Res** nos handlers e **cobertura QA** com cenários HTTP reais.
+
+## Escopo (P0)
+
+| Item | Descrição |
+| --- | --- |
+| TD-RUNTIME-HORSE-001 | Matching de rotas com parâmetros (`/produtos/:id`) |
+| TD-RUNTIME-HORSE-002 | `Req.Params['id']` populado a partir do path HTTP |
+| TD-RUNTIME-HORSE-003 | `Res.Send(...)` captura payload no handler (sem retorno `null`) |
+| TD-TEST-E2E-001 | Teste E2E de rota inexistente → **404** |
+| TD-TEST-E2E-002 | Teste E2E de rota parametrizada |
+
+## Critérios de aceite
+
+- `cargo test --test horse_e2e` passa com 4 cenários.
+- `GET /items/42` retorna corpo contendo `42` quando rota é `/items/:id`.
+
+## Roadmap pós-S16 (proposta)
+
+| Sprint | Foco |
+| --- | --- |
+| **S17** | CRUD completo: `ProdutoService` parseável \+ fluxo GET/POST/PUT/DELETE |
+| **S18** | `System.JSON` RTL \+ serialização real de `TJSONObject` |
+| **S19** | Paridade `build` nativo para Horse (stubs C com HTTP real, não printf) |
+| **S20** | IDE Problems \+ gate CI com gcc/clang → marketplace plugins |
+
+## Aprendizado esperado
+
+Rotas parametrizadas são pré-requisito de qualquer API REST; sem elas, o exemplo CRUD “funciona no papel” mas falha na prática.

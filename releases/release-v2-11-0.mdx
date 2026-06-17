@@ -1,0 +1,19 @@
+---
+title: "Release v2.11.0 — Classes / Streams (Sprint 3)"
+description: "CrabPascal docs - Release v2.11.0 — Classes / Streams (Sprint 3)"
+---
+
+# Release v2.11.0 — Classes / Streams (Sprint 3)
+
+**Tag:** `v2.11.0`
+
+## Resumo
+
+`uses System.Classes` com `TMemoryStream` e `TStringList` funcionais no runtime (`Create`, `Write`, `Size`, `Add`, `Count`, `Text`).
+
+## Validar
+
+```powershell
+cargo test --test classes_streams
+.\target\debug\crab-pascal.exe run tests\fixtures\memory_stream_test.pas
+```

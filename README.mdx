@@ -1,0 +1,90 @@
+---
+title: "README"
+---
+
+# Publicar documentacao CrabPascal no Mintlify
+
+Este diretorio (`mintlify/`) contem o site de documentacao reorganizado por temas.
+
+## Estrutura
+
+| Secao | Conteudo |
+| --- | --- |
+| **Inicio** | Intro, quickstart, onboarding |
+| **Essenciais** | Status v2.22 (consolidado), changelog, filosofia |
+| **Uso** | CLI, IDE, Postman, configuracao |
+| **Arquitetura** | Pipeline, tecnico detalhado |
+| **Roadmap** | Sprints 1-16, review 360, squad |
+| **Releases** | v2.9.9 - v2.22.0 \+ hotfixes v2.8 |
+| **Debito tecnico** | Backlog \+ auditorias pos v2.16 |
+| **Historico** | Documentos superseded (out/2025) com banner de arquivo |
+| **Recursos / IA** | Curso, referencias, contexto para agentes |
+
+Documentos antigos substituidos ficam em `history/` com aviso apontando para [Status](/essentials/project-status) e [Changelog](/essentials/changelog).
+
+## Preview local
+
+```bash
+cd mintlify
+mint dev
+```
+
+Abre em `http://localhost:3000`.
+
+## Sincronizar a partir de `documentation/` e `docs/`
+
+```powershell
+powershell -ExecutionPolicy Bypass -File mintlify/scripts/migrate-docs.ps1
+```
+
+Revisa `docs.json` manualmente se adicionar paginas novas.
+
+## Deploy no Mintlify (Git)
+
+1. Crie conta em [mintlify.com](https://mintlify.com)
+2. **New documentation** → conecte o repositorio Bitbucket/GitHub
+3. Defina **docs directory** = `mintlify`
+4. Branch de deploy: `main` (ou a branch desejada)
+5. Mintlify faz build automatico a cada push
+
+### Dominio customizado
+
+No dashboard Mintlify: **Settings → Domain** → configure CNAME.
+
+## Admin MCP (editar via Cursor)
+
+Para o agente editar paginas diretamente no Mintlify:
+
+1. `Ctrl+Shift+P` → **Open MCP settings**
+2. Adicione:
+
+```json
+{
+  "mcpServers": {
+    "mintlify": {
+      "url": "https://mcp.mintlify.com"
+    }
+  }
+}
+```
+
+3. Reinicie o Cursor e faca login OAuth no projeto CrabPascal.
+
+## Docs MCP (busca publica)
+
+Apos publicar, o MCP de leitura fica em:
+
+```text
+https://<seu-subdominio>.mintlify.app/mcp
+```
+
+## Arquivos excluidos do site
+
+- `BibliaDelphi8.md` e `DELPHI 10.md` (\>500 KB) — ver [Handbooks externos](/resources/handbooks-externos)
+- `URGENTE_REVOGAR_TOKEN.md` — procedimento operacional sensivel (mantido so no repo)
+
+## Versao de referencia
+
+- Binario: **v2.22.0** (`Cargo.toml`)
+- Changelog canonico: `essentials/changelog.md`
+- Backlog: `technical-debt/backlog.md`

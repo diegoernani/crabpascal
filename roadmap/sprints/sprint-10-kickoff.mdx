@@ -1,0 +1,25 @@
+---
+title: "Sprint 10 — Planning + Kickoff (v2.18.0)"
+description: "CrabPascal docs - Sprint 10 — Planning + Kickoff (v2.18.0)"
+---
+
+# Sprint 10 — Planning \+ Kickoff (v2.18.0)
+
+**Início:** 2026-05-26\
+**Objetivo:** paridade mínima run/build (strings) \+ gate de estabilidade para plugins.
+
+## Backlog
+
+| ID | Tarefa | Dono | Status |
+| --- | --- | --- | --- |
+| S10-01 | Parser: `Trim` não é hard-cast | Bruno | ✅ |
+| S10-02 | Codegen: `%s`/`%d` WriteLn \+ decls `pascal_*` | Lucas | ✅ |
+| S10-03 | Teste paridade nativa (skip sem gcc) | Marina | ✅ |
+| S10-04 | Review \+ tag v2.18.0 | Rafael | ✅ |
+| S10-05 | Plugins VS/Cursor — só se gate estável | Rafael | ⏸ adiado |
+
+## Gate plugins (Marketplace / Open VSX)
+
+Publicar extensão **somente** quando `build_string_conformance_stdout_matches_run_when_toolchain_present` passar em CI com gcc/clang.
+
+**Status pós-S10:** gate não validado neste ambiente (sem toolchain C) → extensão permanece **v2.17.0** nas lojas; planejar **v2.19.0** ou CI verde.

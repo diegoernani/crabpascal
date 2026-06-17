@@ -1,0 +1,23 @@
+---
+title: "Sprint 3 — Review (v2.11.0)"
+description: "CrabPascal docs - Sprint 3 — Review (v2.11.0)"
+---
+
+# Sprint 3 — Review (v2.11.0)
+
+**Fechamento:** 2026-05-26
+
+## Entregas
+
+- `rtl/sys/System.Classes.pas` — shims TObject, TStream, TMemoryStream, TStringList.
+- Runtime: `TMemoryStream.Create/Write/Size`, `TStringList.Create/Add/Count/Text`.
+- Semântica: símbolos ao carregar `System.Classes`.
+- Testes: `tests/classes_streams.rs`, resolver `System.Classes`.
+
+## Aprendizados
+
+1. Intrinsics no `simulate_function_execution` \+ fallback pós-VMT cobrem métodos sem corpo Pascal.
+2. Propriedades (`Count`, `Size`, `Text`, `Strings`) via `RecordAccess` em `ObjectInstance`.
+3. Indexador `List.Strings[i]` ainda quebra no parser — usar `Text` ou método até S6.
+
+**Tag `v2.11.0` aprovada.**

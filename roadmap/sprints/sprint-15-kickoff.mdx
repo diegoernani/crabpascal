@@ -1,0 +1,34 @@
+---
+title: "Sprint 15 — Kickoff (Gate E2E Horse/CRUD)"
+description: "CrabPascal docs - Sprint 15 — Kickoff (Gate E2E Horse/CRUD)"
+---
+
+# Sprint 15 — Kickoff (Gate E2E Horse/CRUD)
+
+## Objetivo
+
+Criar um **gate de estabilidade end-to-end** baseado em cenários reais (Horse API \+ CRUD), eliminando flakiness por **porta ocupada** e garantindo que o runtime execute **HTTP de verdade** com handlers Pascal.
+
+## Escopo (P0)
+
+- **Runtime Horse**: `THorse.Listen` não pode quebrar com `AddrInUse` quando a porta padrão estiver ocupada.
+- **Porta efêmera**: suportar `THorse.Listen(0)` e imprimir a porta real atribuída.
+- **Evitar double-bind**: não iniciar servidor duas vezes (Listen \+ auto-start por rotas).
+- **Testes E2E**:
+  - `horse_ping_e2e`: sobe servidor, faz request HTTP real em `/ping`, valida `200` \+ payload.
+  - `crud_routes_smoke`: sobe rota `/produtos`, valida `200` \+ JSON.
+
+## Critérios de aceite
+
+- `cargo test` passa com os testes E2E incluídos.
+- Execução de `run` de apps Horse não falha por **porta 9000 em uso** (faz fallback automático para porta livre).
+
+## Plano de QA (cenários mínimos)
+
+- **Porta ocupada**: iniciar dois servidores em sequência e garantir que o segundo sobe em porta livre.
+- **Rota inexistente**: request em rota não registrada retorna `404`.
+- **Payload**: rota que retorna string e rota que retorna objeto JSON.
+
+## Aprendizado esperado
+
+- “E2E primeiro” evita falsa estabilidade: se a infra (porta/rede) falhar, o produto falha — então o gate precisa cobrir isso.

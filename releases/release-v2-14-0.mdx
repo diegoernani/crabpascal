@@ -1,0 +1,19 @@
+---
+title: "Release v2.14.0 — Properties OO (Sprint 6)"
+description: "CrabPascal docs - Release v2.14.0 — Properties OO (Sprint 6)"
+---
+
+# Release v2.14.0 — Properties OO (Sprint 6)
+
+**Tag:** `v2.14.0`
+
+## Resumo
+
+Properties em classes Delphi: parse na AST, binding semântico `obj.Prop` e leitura/escrita no runtime com backing field.
+
+## Validar
+
+```powershell
+cargo test --test properties_runtime
+cargo test
+```

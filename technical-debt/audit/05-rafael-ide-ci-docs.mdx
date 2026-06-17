@@ -1,0 +1,22 @@
+---
+title: "Auditoria (Rafael) — Docs, IDE e CI/governança (pós v2.16.0)"
+description: "CrabPascal docs - Auditoria (Rafael) — Docs, IDE e CI/governança (pós v2.16.0)"
+---
+
+# Auditoria (Rafael) — Docs, IDE e CI/governança (pós v2.16.0)
+
+## Resumo do que foi auditado
+
+- VSCode/Cursor extension: `vscode-extension/extension.js` e `vscode-extension/package.json`
+- Governança/descrições em docs e scripts (principalmente drift de versão e fragilidade de harness)
+- Evidências de “integration incompleta” para diagnósticos (problem matcher existe, mas parsing/DI não)
+
+## Débitos confirmados no código
+
+| ID | Tipo | Prioridade | Área | Arquivo | Linha | Evidência | Impacto | Sprint sugerida | Dono sugerido | Teste recomendado | Risco se ignorar |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| TD-IDE-001 | Problemas não são exibidos no Problems (extensão) | P1 | IDE | `vscode-extension/extension.js` | 185-190 | `// TODO: Parse e mostre problemas` e a extensão apenas `console.log(stdout)`; não há integração com `DiagnosticCollection` (não encontrado via varredura no código da extensão) | Usuário não recebe diagnósticos estruturados na UI, mesmo com `problemMatchers` declarado no manifest | S16 (v2.24.0) | Rafael \+ Marina | Teste manual/automatizado: executar `crabpascal.check` e validar que `Problems` recebe entries | Médio/alto: DX piora |
+| TD-IDE-002 | Comando `build` da extensão não usa `build` (usa `build-exe`) | P1 | IDE | `vscode-extension/extension.js` | 157-161 | `crabpascal.build` chama `runCrabPascal('build-exe')` e não `build`. Além disso, `compile` e `build` mapeiam para `build-exe` | Divergência run/build não é exercitada via IDE/CI; o usuário pode confiar no caminho `build-exe` sem garantir paridade com `build` | S10/S16 | Rafael \+ Lucas | Ajustar harness de CI: rodar testes de paridade que chamem `crab-pascal build` diretamente | Médio/alto |
+| TD-IDE-003 | `problemMatcher` existe no package.json, mas parsing na extensão está incompleto | P2 | IDE | `vscode-extension/package.json` \+ `extension.js` | 76-92 \+ 184-190 | `problemMatchers` no manifest (regex com `file:line:col: severity message`) mas extensão não “transforma stdout/stderr” em formato esperado/diagnósticos | Pode não preencher Problems como esperado; ruído/ausência de diagnóstico | S16 | Rafael | Validar com fixture que falha no `check`: problemas aparecem no editor | Baixo/médio |
+| TD-CI-001 | Harness de exemplos usa servidor/endpoint local (CI frágil) | P1 | CI/Harness | `tests/test_exemplos_completo.ps1` | 133-143 | `Start-Job` executa server, mas endpoints são HTTP reais em `localhost:9001` | CI depende de runtime server e timing; pode gerar flakes | S16 | Rafael \+ Marina | Trocar por mock/stub offline ou adicionar “skip” quando server/endpoint não estiver disponível | Médio/alto |
+| TD-DOCS-001 | Drift de versão em documentação de testes | P3 | Docs | `tests/README.md` | 1-5 | README declara “CrabPascal v2.8.0” e descreve cobertura/estatus possivelmente desatualizado | Confunde stakeholders sobre baseline real e cobertura atual | S16/S9 | Rafael \+ Marina | Atualizar README para referenciar v2.16.0 e listas atuais | Baixo |

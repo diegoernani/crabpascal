@@ -1,0 +1,19 @@
+---
+title: "Release v2.13.0 — Strings (Sprint 5)"
+description: "CrabPascal docs - Release v2.13.0 — Strings (Sprint 5)"
+---
+
+# Release v2.13.0 — Strings (Sprint 5)
+
+**Tag:** `v2.13.0`
+
+## Resumo
+
+Funções de string Delphi centralizadas em `pascal_strings` (1-based), usadas no `run` e espelhadas em `stubs.c`.
+
+## Validar
+
+```powershell
+cargo test --test string_conformance
+cargo test pascal_strings
+```

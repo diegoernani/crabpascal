@@ -1,0 +1,25 @@
+---
+title: "Sprint 4 — Review (v2.12.0)"
+description: "CrabPascal docs - Sprint 4 — Review (v2.12.0)"
+---
+
+# Sprint 4 — Review (v2.12.0)
+
+**Fechamento:** 2026-05-26
+
+## Entregas
+
+- `Exception` no heap com `FMessage`; `Exception::Create`.
+- `try/except` genérico e `on E: Exception do` com objeto no handler.
+- `try/finally` (finally sempre executa).
+- `raise` e `raise;` (re-raise via `last_exception`).
+- `div` com divisão por zero → exceção capturável.
+- Testes `tests/exceptions.rs` (4 casos).
+
+## Aprendizados
+
+1. `Exception.Create` exige tratar `Exception` como class method (não só `T*`).
+2. Handlers tipados precisam de objeto no heap, não só string do `Err`.
+3. Codegen C para exceptions continua fora de escopo (S5\+).
+
+**Tag `v2.12.0` aprovada.**

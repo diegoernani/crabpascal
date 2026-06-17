@@ -1,0 +1,165 @@
+---
+title: "🎯 PLANO v1.8.0 - PRAGMÁTICO E COMPLETO"
+description: "CrabPascal docs - 🎯 PLANO v1.8.0 - PRAGMÁTICO E COMPLETO"
+---
+
+<Note>
+  **Documento de arquivo** - conteudo historico. Consulte [Status](/essentials/project-status) e [Changelog](/essentials/changelog).
+</Note>
+
+# 🎯 PLANO v1.8.0 - PRAGMÁTICO E COMPLETO
+
+**Data:** 24 de Outubro de 2025\
+**Versão anterior:** v1.7.0 (96%)\
+**Meta:** v1.8.0 (97%) - TDictionary \+ Interfaces\
+**Estratégia:** Pragmática, robusta, sem gambiarras
+
+---
+
+## 🎯 **ESCOPO v1.8.0:**
+
+### **CORE (Obrigatório):**
+
+1. ✅ TDictionary\<K,V\> template hardcoded
+2. ✅ Métodos: Add, TryGetValue, ContainsKey, Count
+3. ✅ Hash function básica
+4. ✅ Interface declaration parsing
+5. ✅ Interface implementation tracking
+
+### **BONUS (Se der tempo):**
+
+- Property Items\[Index\] para TList
+- Clear, Delete para TList
+- Interface method dispatch
+
+---
+
+## 📋 **IMPLEMENTAÇÃO:**
+
+### **FASE 1: TDictionary\<K,V\> Template (3-4h)**
+
+**1.1 Criar template no runtime:**
+
+```pascal
+TDictionary<TKey, TValue> = class
+private
+  FKeys: array of TKey;
+  FValues: array of TValue;
+  FCount: Integer;
+public
+  procedure Add(Key: TKey; Value: TValue);
+  function TryGetValue(Key: TKey; var Value: TValue): Boolean;
+  function ContainsKey(Key: TKey): Boolean;
+  function Count: Integer;
+end;
+```
+
+**1.2 Implementar hash function:**
+
+```rust
+fn hash_value(&self, value: &Value) -> u64 {
+    match value {
+        Value::Integer(i) => *i as u64,
+        Value::String(s) => simple_string_hash(s),
+        _ => 0
+    }
+}
+```
+
+**1.3 Implementar métodos:**
+
+- Add: Busca por key, atualiza ou adiciona
+- TryGetValue: Busca e retorna via var parameter
+- ContainsKey: Verifica existência
+- Count: Retorna FCount
+
+---
+
+### **FASE 2: Interfaces Básicas (2-3h)**
+
+**2.1 AST para interfaces:**
+
+```rust
+pub struct InterfaceDeclaration {
+    pub name: String,
+    pub methods: Vec<InterfaceMethod>,
+}
+
+pub struct InterfaceMethod {
+    pub name: String,
+    pub parameters: Vec<Parameter>,
+    pub return_type: Option<Type>,
+}
+```
+
+**2.2 Parser:**
+
+```rust
+fn parse_interface_declaration(&mut self) -> Result<InterfaceDeclaration> {
+    self.expect_token(Token::Interface)?;
+    // Parse métodos
+    Ok(InterfaceDeclaration { ... })
+}
+```
+
+**2.3 Implementation tracking:**
+
+```pascal
+TPerson = class(TInterfacedObject, IComparable)
+  // Parser reconhece lista de interfaces
+end;
+```
+
+---
+
+## ⏱️ **TIMELINE:**
+
+```text
+Hora 1-2:   TDictionary template + hash
+Hora 3-4:   TDictionary métodos
+Hora 5:     Testes TDictionary
+Hora 6-7:   Interface AST + Parser
+Hora 8:     Interface implementation
+Hora 9:     Testes interface
+Hora 10:    Documentação + Release
+
+TOTAL: ~10 horas para v1.8.0 completa!
+```
+
+---
+
+## 🎯 **RESULTADO ESPERADO:**
+
+```pascal
+var
+  Ages: TDictionary<String, Integer>;
+  value: Integer;
+begin
+  Ages := TDictionary<String, Integer>.Create;
+  Ages.Add('João', 30);
+  Ages.Add('Maria', 25);
+  
+  if Ages.TryGetValue('João', value) then
+    WriteLn('João tem ', value, ' anos');
+  
+  WriteLn('Count: ', Ages.Count); // 2
+end.
+```
+
+---
+
+## 📊 **COMPATIBILIDADE:**
+
+```text
+v1.7.0: 96%
+v1.8.0: 97% (+1%)
+
+Ganho através de:
+- TDictionary<K,V> básico
+- Interface declarations
+- Interface implementation tracking
+```
+
+---
+
+**VAMOS COMEÇAR! 🚀**

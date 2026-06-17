@@ -1,0 +1,61 @@
+---
+title: "Sprint 1 — Review / Retrospectiva (v2.9.9)"
+description: "CrabPascal docs - Sprint 1 — Review / Retrospectiva (v2.9.9)"
+---
+
+# Sprint 1 — Review / Retrospectiva (v2.9.9)
+
+**Data de fechamento:** 2026-05-26\
+**Facilitador:** Rafael · **QA:** Marina · **Review técnica:** Helena
+
+---
+
+## Cerimônia de Review (ata)
+
+### O que entregamos
+
+| ID | Entrega | Status |
+| --- | --- | --- |
+| S1-01 … S1-07 | Spans, check, testes golden | ✅ |
+| S1-08 | Release `v2.9.9` \+ documentação | ✅ |
+
+### Demo (Marina)
+
+- `check` em `bad_begin_line.pas` → `3:1` (antes: `1:1`).
+- Matriz de 10 casos em `tests/check_diagnostics.rs` — verde.
+- `cargo test` — verde (51 \+ 3 integração; 1 teste ignorado: shadowing S2\+).
+
+### Métricas acordadas
+
+- **DoD técnico:** 4/5 itens (exemplos Horse 0/9 no CI local — aceito como débito de ambiente).
+- **Velocidade:** sprint fechada no prazo do roadmap interno.
+
+### O que funcionou bem
+
+- Spans no **token emitido** (`last_token_span`) evitaram confusão com peek.
+- Testes de integração com parser de paths Windows (`C:\...`).
+- Escopo fechado: sem System/Classes na S1.
+
+### Aprendizados (para o doc de versões)
+
+1. **Peek vs current:** logos avança o cursor; guardar span no token **já lido** é obrigatório para diagnósticos corretos.
+2. **Paths Windows:** extrair `linha:coluna` pelo sufixo `: error:`, não por `split(':')` no path completo.
+3. **Check silencioso:** `quiet_diagnostics` separa UX de IDE (stderr) de debug interativo (println).
+4. **Próximo passo natural:** levar spans à **semântica** (S2/S3), não adiar para S8.
+
+### Melhorar na próxima sprint
+
+- Reduzir ruído no `run` (banners de versão desatualizados no binário).
+- Alinhar `show_version` com `CARGO_PKG_VERSION`.
+- `test_exemplos_completo.ps1`: smoke sem servidor ou mock Horse.
+
+### Decisão da squad (voto final — Rafael)
+
+- **Release `v2.9.9` aprovada** para commit, push e tag.
+- **Sprint 2 iniciada** imediatamente (System/namespaces).
+
+---
+
+## Participantes
+
+Rafael, Helena, Bruno, Camila, Lucas, Marina — obrigado pelo foco. Boa sorte na S2.

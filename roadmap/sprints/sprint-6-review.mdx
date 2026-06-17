@@ -1,0 +1,23 @@
+---
+title: "Sprint 6 — Review (v2.14.0)"
+description: "CrabPascal docs - Sprint 6 — Review (v2.14.0)"
+---
+
+# Sprint 6 — Review (v2.14.0)
+
+**Fechamento:** 2026-05-26
+
+## Entregas
+
+- Parser: `VisibilitySection.properties` preenchido em `parse_visibility_section`.
+- Runtime: `class_fields`, `class_properties`, `read_object_property` / `write_object_property`, `TClass.Create` genérico na VMT, init de fields no `allocate_object`.
+- Semântica: registro de properties por classe; `infer_lvalue_type` para `obj.Prop`; `Create` retorna tipo da classe.
+- Teste `tests/fixtures/class_property.pas` \+ `tests/properties_runtime.rs`.
+
+## Aprendizados
+
+1. Atribuição `B.Value := n` exige tipo do **lvalue** (property), não do objeto base — erro semântico enganoso antes do fix.
+2. MVP S6: properties com backing field (`read F write F`); getters/setter como método ficam para sprint seguinte.
+3. Paridade `build`/codegen para properties permanece débito explícito.
+
+**Tag `v2.14.0` aprovada.**

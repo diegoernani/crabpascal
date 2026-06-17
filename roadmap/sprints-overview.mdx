@@ -1,0 +1,99 @@
+---
+title: "Roadmap sprints"
+description: "CrabPascal docs - Roadmap de Releases (Sprints → Versões) — CrabPascal"
+---
+
+# Roadmap de Releases (Sprints → Versões) — CrabPascal
+
+Este documento lista, em um só lugar, as **próximas versões** planejadas e o **conteúdo de cada sprint** com foco em **valor entregue** (aproximar Delphi, reduzir inconsistências, aumentar compatibilidade e qualidade).
+
+> Convenção: **1 sprint = 1 release**.\
+> Versões propostas podem ser ajustadas para refletir o versionamento real do binário/extensão (há drift no repo).
+
+---
+
+## Status do roadmap (2026-05-31)
+
+| Sprint | Versão | Status |
+| --- | --- | --- |
+| S1–S14 | v2.9.9 → v2.22.0 | ✅ Fechadas (tag aprovada) |
+| S15 | v2.23.0 | ✅ Fechada (review; tag pendente) |
+| S16 | v2.24.0 | ✅ Fechada (review; tag pendente) |
+| **S17** | **v2.25.0** | 🔄 **Em andamento** |
+| S18–S20 | v2.26.0 → v2.28.0 | 📋 Programadas |
+
+**Sprints concluídas:** 16 · **Em andamento:** 1 (S17) · **Programadas sem iniciar:** 3 (S18–S20)
+
+---
+
+## Sprint 11 — **v2.19.0** — Parser hardening
+
+**Valor:** compat Delphi maior: `out`, multi-fields e interfaces em `class(...)`.
+
+### Entregas realizadas (fechado 2026-05-26) — tag `v2.19.0`
+
+Review: [sprint-11-review](/roadmap/sprints/sprint-11-review)
+
+---
+
+## Sprint 12 — **v2.20.0** — Properties por método
+
+**Valor:** `property X read GetX write SetX` executa accessors reais no `run`.
+
+### Entregas realizadas (fechado 2026-05-26) — tag `v2.20.0`
+
+Review: [sprint-12-review](/roadmap/sprints/sprint-12-review)
+
+---
+
+## Sprint 13 — **v2.21.0** — Build honesto (exceptions)
+
+**Valor:** `build` falha explicitamente quando exceptions não têm codegen.
+
+### Entregas realizadas (fechado 2026-05-26) — tag `v2.21.0`
+
+Review: [sprint-13-review](/roadmap/sprints/sprint-13-review)
+
+---
+
+## Sprint 14 — **v2.22.0** — RTL IOUtils \+ unit dotted names
+
+### Entregas realizadas (fechado 2026-05-26) — tag `v2.22.0`
+
+Review: [sprint-14-review](/roadmap/sprints/sprint-14-review)
+
+---
+
+## Sprint 15 — **v2.23.0** — Gate E2E Horse/CRUD
+
+**Valor:** estabilidade medida por HTTP real; apps Horse não quebram por porta ocupada.
+
+### Entregas realizadas (fechado 2026-05-31) — tag `v2.23.0` pendente
+
+Review: [sprint-15-review](/roadmap/sprints/sprint-15-review)
+
+---
+
+## Sprint 16 — **v2.24.0** — Horse routing \+ QA E2E
+
+**Valor:** rotas parametrizadas (`/items/:id`), `Req.Params`, `Res.Send` em handlers.
+
+### Entregas realizadas (fechado 2026-05-31) — tag `v2.24.0` pendente
+
+Review: [sprint-16-review](/roadmap/sprints/sprint-16-review)
+
+---
+
+## Sprint 17 — **v2.25.0** — CRUD completo \+ `class var` \+ `System.JSON` 🔄
+
+**Status:** em andamento (working tree com alterações não commitadas).
+
+Kickoff: [sprint-17-kickoff](/roadmap/sprints/sprint-17-kickoff)
+
+---
+
+## Sprint 18 — **v2.26.0** — Serialização JSON completa (proposta)
+
+## Sprint 19 — **v2.27.0** — Paridade `build` nativo Horse (proposta)
+
+## Sprint 20 — **v2.28.0** — IDE Problems \+ marketplace (proposta)

@@ -1,0 +1,33 @@
+---
+title: "Release v2.19.0 — Parser hardening (Sprint 11)"
+description: "CrabPascal docs - Release v2.19.0 — Parser hardening (Sprint 11)"
+---
+
+# Release v2.19.0 — Parser hardening (Sprint 11)
+
+**Tag:** `v2.19.0`\
+**Sprint:** 11
+
+## Resumo
+
+Esta release fortalece o parser Delphi (multi-fields, `out`, interfaces em `class(...)`) e corrige um bug crítico em genéricos que pulava o token `.` após `&gt;`.
+
+## Mudanças
+
+- **Lexer:** `out` agora é token.
+- **Parser:** `out` em parâmetros (tratado como `var` no runtime atual).
+- **Parser:** múltiplos fields em `record` e `class` preservados.
+- **Parser:** interfaces implementadas em `class(TBase, I1, I2)`.
+- **Parser:** genéricos `&lt;...&gt;` não pulam mais o próximo token.
+- **Semântica:** compatibilidade `GenericInstance` x `GenericInstance`.
+- **Testes:** `parser_hardening` e paridade sem race.
+
+## Testes
+
+```bash
+cargo test
+```
+
+## Plugins VS Code / Cursor
+
+Mantidos sem publicação automática (ver `TD-MARKETPLACE-001` em `docs/DEBITO_TECNICO_FUTURO.md`).

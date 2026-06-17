@@ -1,0 +1,25 @@
+---
+title: "Release v2.20.0 — Properties por método (Sprint 12)"
+description: "CrabPascal docs - Release v2.20.0 — Properties por método (Sprint 12)"
+---
+
+# Release v2.20.0 — Properties por método (Sprint 12)
+
+**Tag:** `v2.20.0`\
+**Sprint:** 12
+
+## Resumo
+
+Entrega properties com accessor por método no runtime (`run`) e remove bloqueios semânticos para backing fields em métodos de classe.
+
+## Mudanças
+
+- Runtime: accessors `read/write` por método usam VMT dispatch.
+- Semântica: fields `F*` dentro de métodos de classe não quebram análise.
+- Testes: fixture `property_accessor_methods`.
+
+## Testes
+
+```bash
+cargo test
+```

@@ -1,0 +1,30 @@
+---
+title: "Sprint 15 — Review (Gate E2E Horse/CRUD)"
+description: "CrabPascal docs - Sprint 15 — Review (Gate E2E Horse/CRUD)"
+---
+
+# Sprint 15 — Review (Gate E2E Horse/CRUD)
+
+## Entregas
+
+- **Runtime Horse mais robusto**:
+  - Evita **double-bind**: quando `THorse.Listen` é chamado, o auto-start por rotas não roda.
+  - **Fallback automático de porta**: se a porta solicitada estiver ocupada (`AddrInUse`), o servidor sobe em uma porta livre.
+  - **Suporte a porta efêmera**: `THorse.Listen(0)` deixa o SO escolher e o runtime imprime a porta real.
+- **Testes E2E (HTTP real)**:
+  - `tests/fixtures/horse_ping_e2e.pas` \+ `tests/horse_e2e.rs`: request real em `/ping`.
+  - `tests/fixtures/crud_routes_smoke.pas` \+ `tests/horse_e2e.rs`: request real em `/produtos` retornando JSON.
+
+## Valor entregue ao usuário
+
+- Apps Horse/CRUD deixam de “quebrar do nada” por porta ocupada.
+- Estabilidade agora é medida por **execução real** via HTTP, não só por testes unitários.
+
+## Aprendizado da sprint
+
+- Um “produto estável” precisa de testes que peguem problemas de ambiente (porta ocupada, concorrência, execução longa). Sem isso, dá para ficar “verde” em unit tests e ainda falhar na prática.
+
+## Próximos passos (proposta)
+
+- Evoluir o gate CRUD para validar **status codes e payloads completos** (GET/POST/PUT/DELETE).
+- Adicionar testes de **concurrency** (dois servidores em paralelo) e **404** para rotas inexistentes.

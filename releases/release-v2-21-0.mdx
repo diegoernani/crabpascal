@@ -1,0 +1,25 @@
+---
+title: "Release v2.21.0 — Build honesto para exceptions (Sprint 13)"
+description: "CrabPascal docs - Release v2.21.0 — Build honesto para exceptions (Sprint 13)"
+---
+
+# Release v2.21.0 — Build honesto para exceptions (Sprint 13)
+
+**Tag:** `v2.21.0`\
+**Sprint:** 13
+
+## Resumo
+
+`build`/codegen C não gera mais blocos de exceptions "simulados" que mascaram divergências com `run`. Ao encontrar exceptions, o codegen retorna erro explícito orientando o uso de `run`.
+
+## Mudanças
+
+- Codegen: `try/except/finally` → erro explícito.
+- Codegen: `raise` → erro explícito.
+- Teste: `codegen::tests::test_codegen_errors_on_try_raise`.
+
+## Testes
+
+```bash
+cargo test
+```

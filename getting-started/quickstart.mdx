@@ -1,0 +1,77 @@
+---
+title: "Início rápido"
+description: "Instale o CrabPascal v2.22+, compile e execute seu primeiro programa Pascal"
+---
+
+## Pré-requisitos
+
+- **Windows** (binário `crab-pascal.exe`) ou **Rust toolchain** para compilar do fonte
+- Opcional: **gcc/clang** para `build-exe` (geração de executável nativo)
+- Opcional: extensão **VS Code / Cursor** (`crabpascal.crabpascal`)
+
+## Instalação
+
+### Windows — binário
+
+```powershell
+# Baixe o release mais recente (v2.22.0+) do repositório
+# Coloque crab-pascal.exe no PATH ou configure na extensão
+crab-pascal --version
+```
+
+### Compilar do fonte
+
+```bash
+git clone https://bitbucket.org/alphatecnologia/crabpascal.git
+cd crabpascal
+cargo build --release
+# Binário: target/release/crab-pascal.exe (Windows) ou crab-pascal (Linux/macOS)
+```
+
+<Tip>
+  A extensão VS Code/Cursor pode **auto-instalar** o compilador na primeira execução. Veja [Auto-instalação](/usage/auto-instalacao-compilador).
+</Tip>
+
+## Primeiro programa
+
+```pascal
+program HelloWorld;
+begin
+  WriteLn('Hello from CrabPascal!');
+end.
+```
+
+```bash
+crab-pascal run HelloWorld.dpr
+crab-pascal check HelloWorld.dpr
+```
+
+## Comandos CLI
+
+| Comando | Descrição |
+| --- | --- |
+| `check` | Análise léxica \+ parse \+ semântica; emite diagnósticos com linha/coluna |
+| `run` | Executa via runtime interno (interpretador) |
+| `build-exe` | Gera C \+ compila com gcc/clang |
+| `preproc` | Pré-processa diretivas `{$IFDEF}` etc. |
+| `parse` | Exibe AST (debug) |
+
+## Próximos passos
+
+<CardGroup cols={2}>
+  <Card title="Configuração" icon="gear" href="/usage/configuracao">
+    `crabpascal.toml`, search paths, defines e modo Delphi/FPC.
+  </Card>
+
+  <Card title="VS Code / Cursor" icon="code" href="/usage/guia-integracao-vscode-cursor">
+    Problem matcher, tasks e atalhos de compilação.
+  </Card>
+
+  <Card title="APIs Horse" icon="server" href="/usage/postman-guide">
+    Testar endpoints REST com Postman ou cURL.
+  </Card>
+
+  <Card title="Status do projeto" icon="chart-line" href="/essentials/project-status">
+    O que está pronto em v2.22.0 e o que falta.
+  </Card>
+</CardGroup>

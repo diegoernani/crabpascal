@@ -1,0 +1,44 @@
+---
+title: "Sprint 16 — Review (Horse routing + QA E2E)"
+description: "CrabPascal docs - Sprint 16 — Review (Horse routing + QA E2E)"
+---
+
+# Sprint 16 — Review (Horse routing \+ QA E2E)
+
+**Foco:** deixar o runtime Horse pronto para APIs REST reais.
+
+## Entregas
+
+### Runtime Horse
+
+- **Rotas parametrizadas**: `/items/:id` casa com `/items/42` e extrai parâmetros.
+- **Contexto de handler**: `Req`, `Res` e `Next` inicializados em escopo local; `Req.Params` preenchido com valores do path.
+- **`Res.Send` via método**: chamadas `Res.Send(valor)` em handlers anônimos passam a capturar o payload (antes retornava `null` no JSON).
+- **Acesso a campos de objeto**: `Req.Params['id']` funciona via `Record` \+ indexação string.
+
+### QA / Testes E2E
+
+| Teste | Cenário |
+| --- | --- |
+| `horse_ping_e2e_serves_http` | GET `/ping` → 200 \+ payload |
+| `crud_smoke_serves_json_object` | GET `/produtos` → 200 \+ JSON |
+| `horse_unknown_route_returns_404` | GET rota inexistente → 404 |
+| `horse_route_params_extract_id_from_path` | GET `/items/42` → corpo contém `42` |
+
+Helper `spawn_server` \+ `ServerHandle` (Drop mata processo) evita testes flaky e vazamento de porta.
+
+## Valor entregue ao usuário
+
+APIs Horse com parâmetros de path (`:id`) funcionam como no Delphi real — base para o CRUD completo de `examples/crud`.
+
+## Aprendizado da sprint
+
+1. **E2E expõe bugs que unit tests escondem**: `Res.Send` existia como builtin global, mas handlers usam `Res.Send(...)` como method call — precisava de dispatch explícito.
+2. **Testes de servidor precisam lifecycle claro**: subprocess \+ kill no Drop evita portas presas e suites travadas.
+3. **Incrementalismo honesto**: rotas parametrizadas \+ 404 antes de prometer CRUD completo com `ProdutoService`.
+
+## Próxima sprint (S17)
+
+- Parser: `class var` dentro de classes em units (destravar `ProdutoService.pas`).
+- RTL: shim `System.JSON`.
+- E2E: fixture CRUD com listagem real de produtos via `TProdutoService`.
